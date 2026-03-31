@@ -1,0 +1,27 @@
+---
+import type { Lang } from '../i18n/ui';
+import { useTranslations, useTranslatedArray } from '../i18n/utils';
+
+interface Props { lang?: Lang; }
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
+const ta = useTranslatedArray(lang);
+const benefits = ta('whyChooseUs.items') as {icon: string, label: string}[];
+---
+
+<section class="py-16 lg:py-20 px-6 lg:px-[405px]">
+  <div class="max-w-[1920px] mx-auto">
+    <h2 class="text-xl lg:text-2xl font-bold text-center mb-10">
+      {t('whyChooseUs.title')}
+    </h2>
+
+    <div class="flex flex-wrap justify-center gap-4 lg:gap-6">
+      {benefits.map((b) => (
+        <div class="glass-card px-6 py-5 flex flex-col items-center gap-3 w-[150px] sm:w-[180px] hover:border-brand-cyan/30 transition-colors">
+          <span class="text-3xl">{b.icon}</span>
+          <span class="text-xs text-center text-white/80">{b.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

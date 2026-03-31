@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import Features from '../components/Features.astro';
+import Products from '../components/Products.astro';
+import WhyChooseUs from '../components/WhyChooseUs.astro';
+import Franchise from '../components/Franchise.astro';
+import About from '../components/About.astro';
+import Gallery from '../components/Gallery.astro';
+import Testimonials from '../components/Testimonials.astro';
+import ContactForm from '../components/ContactForm.astro';
+import FAQ from '../components/FAQ.astro';
+import Footer from '../components/Footer.astro';
+
+const lang = 'en' as const;
+---
+
+<Layout lang={lang}>
+  <Navbar lang={lang} />
+  <main>
+    <Hero lang={lang} />
+    <Features lang={lang} />
+    <Products lang={lang} />
+    <WhyChooseUs lang={lang} />
+    <Franchise lang={lang} />
+    <About lang={lang} />
+    <Gallery lang={lang} />
+    <Testimonials lang={lang} />
+    <ContactForm lang={lang} />
+    <FAQ lang={lang} />
+  </main>
+  <Footer lang={lang} />
+</Layout>

@@ -1,0 +1,61 @@
+---
+import type { Lang } from '../i18n/ui';
+import { useTranslations, useTranslatedArray } from '../i18n/utils';
+
+interface Props { lang?: Lang; }
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
+const ta = useTranslatedArray(lang);
+
+const faqs = ta('faq.items');
+---
+
+<section class="py-16 lg:py-24 px-6 lg:px-[546px]">
+  <div class="max-w-[830px] mx-auto">
+    <h2 class="text-xl lg:text-2xl font-bold text-center mb-10">{t('faq.title')}</h2>
+
+    <div class="flex flex-col gap-3" id="faq-container">
+      {faqs.map((faq: any, i: number) => (
+        <div class="gradient-border">
+          <div class="gradient-border-inner">
+            <button
+              class="faq-toggle w-full flex items-center justify-between p-6 text-left"
+              aria-expanded={faq.open ? 'true' : 'false'}
+              data-index={i}
+            >
+              <span class="text-base lg:text-lg font-semibold pr-4">{faq.question}</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class={`faq-content overflow-hidden transition-all duration-300 ${faq.open ? 'max-h-[500px]' : 'max-h-0'}`}>
+              <p class="px-6 pb-6 text-sm text-white/70 leading-relaxed">{faq.answer}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('.faq-toggle').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const content = btn.nextElementSibling as HTMLElement;
+      const icon = btn.querySelector('svg')!;
+      const isOpen = content.classList.contains('max-h-[500px]');
+
+      if (isOpen) {
+        content.classList.remove('max-h-[500px]');
+        content.classList.add('max-h-0');
+        icon.classList.remove('rotate-180');
+        btn.setAttribute('aria-expanded', 'false');
+      } else {
+        content.classList.add('max-h-[500px]');
+        content.classList.remove('max-h-0');
+        icon.classList.add('rotate-180');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>

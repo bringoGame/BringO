@@ -1,0 +1,59 @@
+---
+import type { Lang } from '../i18n/ui';
+import { useTranslations, useTranslatedArray } from '../i18n/utils';
+
+interface Props { lang?: Lang; }
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
+const ta = useTranslatedArray(lang);
+
+const items = ta('franchise.items');
+const colors = ['text-brand-magenta/30', 'text-brand-cyan/30', 'text-brand-magenta/30', 'text-brand-cyan/30'];
+const layouts = ['lg:flex-row', 'lg:flex-row-reverse', 'lg:flex-row', 'lg:flex-row-reverse'];
+const images = [
+  { src: '/images/franchise-training.svg', width: '782', height: '450' },
+  { src: '/images/franchise-support.svg', width: '776', height: '450' },
+  { src: '/images/franchise-marketing.svg', width: '778', height: '450' },
+  { src: '/images/franchise-equipment.svg', width: '783', height: '447' },
+];
+---
+
+<section id="franchise" class="py-16 lg:py-24 px-6 lg:px-[171px]">
+  <div class="max-w-[1920px] mx-auto">
+    <!-- Intro block -->
+    <div class="text-center mb-16 lg:mb-20 max-w-[1580px] mx-auto">
+      <h2 class="text-xl lg:text-2xl font-bold mb-8">
+        {t('franchise.introTitle')}
+      </h2>
+      <p class="text-sm lg:text-base text-white/70 leading-relaxed max-w-[1200px] mx-auto">
+        {t('franchise.introText')}
+      </p>
+    </div>
+
+    <!-- Franchise details -->
+    <h2 class="text-xl lg:text-2xl font-bold text-center mb-12">
+      {t('franchise.detailsTitle')}
+    </h2>
+
+    <div class="flex flex-col gap-8">
+      {items.map((item: any, i: number) => (
+        <div class={`flex flex-col ${layouts[i]} gap-0 rounded-2xl overflow-hidden`}>
+          <div class="lg:w-[55%] bg-brand-purple/40 p-8 lg:p-14 flex flex-col gap-4">
+            <span class={`text-6xl lg:text-8xl font-bold ${colors[i]}`}>{item.num}</span>
+            <h3 class="text-2xl font-bold">{item.title}</h3>
+            <p class="text-sm text-white/70 leading-relaxed">
+              {item.text}
+            </p>
+          </div>
+          <div class="lg:w-[45%] min-h-[280px] bg-brand-purple/60">
+            <img src={images[i].src} alt={item.title} class="w-full h-full object-cover" width={images[i].width} height={images[i].height} loading="lazy" />
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="text-center mt-12">
+      <a href="#contact" class="btn-primary">{t('franchise.cta')}</a>
+    </div>
+  </div>
+</section>

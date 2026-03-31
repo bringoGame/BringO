@@ -1,0 +1,24 @@
+// @ts-check
+import { defineConfig } from 'astro/config';
+import tailwind from '@astrojs/tailwind';
+import node from '@astrojs/node';
+import sitemap from '@astrojs/sitemap';
+
+export default defineConfig({
+  site: 'https://www.bring-o.net',
+  integrations: [
+    tailwind(),
+    sitemap({
+      i18n: {
+        defaultLocale: 'en',
+        locales: {
+          en: 'en',
+          ru: 'ru',
+          ro: 'ro',
+        },
+      },
+    }),
+  ],
+  output: 'hybrid',
+  adapter: node({ mode: 'standalone' }),
+});

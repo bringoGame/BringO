@@ -1,0 +1,186 @@
+---
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  title?: string;
+  description?: string;
+  lang?: Lang;
+}
+
+const titles: Record<Lang, string> = {
+  en: 'Brain Ring — Intellectual game for events, schools and business',
+  ru: 'Брэйн Ринг — Интеллектуальная игра для ивентов, школ и бизнеса',
+  ro: 'Brain Ring — Joc intelectual pentru evenimente, școli și afaceri',
+};
+
+const descriptions: Record<Lang, string> = {
+  en: 'Ready-made questions, button system, turnkey project for Brain Ring intellectual game. Organize quizzes for schools, corporate events and quiz clubs. Bucharest, delivery across Europe.',
+  ru: 'Готовые вопросы и кнопочная система для игры Брэйн Ринг. Викторины для школ, корпоративов и клубов. Бухарест.',
+  ro: 'Întrebări pregătite și sistem de butoane pentru Brain Ring. Quiz-uri pentru școli, corporații și cluburi. București.',
+};
+
+const locales: Record<Lang, string> = { en: 'en_RO', ru: 'ru_RO', ro: 'ro_RO' };
+const htmlLangs: Record<Lang, string> = { en: 'en', ru: 'ru', ro: 'ro' };
+
+const { lang = 'en' } = Astro.props;
+const {
+  title = titles[lang],
+  description = descriptions[lang],
+} = Astro.props;
+
+const langPrefix = lang === 'en' ? '' : `/${lang}`;
+---
+
+<!doctype html>
+<html lang={htmlLangs[lang]}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Google Analytics -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-8K9SDZX4J7"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8K9SDZX4J7');
+    </script>
+
+    <!-- Canonical -->
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site).href} />
+
+    <!-- Preconnect for fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+
+    <title>{title}</title>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={locales[lang]} />
+    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site).href} />
+    <meta property="og:site_name" content="Bringo Activities" />
+    <meta property="og:image" content={new URL('/images/og-image.svg', Astro.site).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL('/images/og-image.svg', Astro.site).href} />
+
+    <!-- Geo & Language -->
+    <meta name="geo.region" content="RO" />
+    <meta name="geo.placename" content="Bucharest" />
+    <link rel="alternate" hreflang="en" href={new URL('/', Astro.site).href} />
+    <link rel="alternate" hreflang="ru" href={new URL('/ru/', Astro.site).href} />
+    <link rel="alternate" hreflang="ro" href={new URL('/ro/', Astro.site).href} />
+    <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site).href} />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://www.bring-o.net/#organization",
+          "name": "Bringo Activities",
+          "alternateName": "Brain Ring",
+          "description": description,
+          "url": "https://www.bring-o.net",
+          "logo": "https://www.bring-o.net/favicon.svg",
+          "telephone": ["+40725462986", "+380731139800"],
+          "email": "info@bring-o.net",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Bucharest",
+            "addressCountry": "RO"
+          },
+          "sameAs": [
+            "https://www.instagram.com/bringo_activities",
+            "https://t.me/bring_O"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://www.bring-o.net/#website",
+          "url": "https://www.bring-o.net",
+          "name": "Bringo Activities",
+          "publisher": { "@id": "https://www.bring-o.net/#organization" },
+          "inLanguage": ["en", "ru", "ro"]
+        },
+        {
+          "@type": "LocalBusiness",
+          "@id": "https://www.bring-o.net/#localbusiness",
+          "name": "Bringo Activities",
+          "description": description,
+          "url": "https://www.bring-o.net",
+          "telephone": "+40725462986",
+          "email": "info@bring-o.net",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Bucharest",
+            "addressCountry": "RO"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 44.4268,
+            "longitude": 26.1025
+          },
+          "priceRange": "$$",
+          "areaServed": ["Romania", "Ukraine", "Europe"]
+        },
+        {
+          "@type": "Product",
+          "name": "Brain Ring Question Package",
+          "description": "Ready-made question package for Brain Ring intellectual game",
+          "brand": { "@type": "Brand", "name": "Bringo Activities" },
+          "offers": {
+            "@type": "Offer",
+            "availability": "https://schema.org/InStock",
+            "priceCurrency": "EUR"
+          }
+        },
+        {
+          "@type": "Product",
+          "name": "Brain Ring Button System",
+          "description": "Wireless button system for intellectual games with automatic first-press detection",
+          "brand": { "@type": "Brand", "name": "Bringo Activities" },
+          "offers": {
+            "@type": "Offer",
+            "availability": "https://schema.org/InStock",
+            "priceCurrency": "EUR"
+          }
+        }
+      ]
+    })} />
+    <!-- Language auto-detect (only on first visit to /) -->
+    {lang === 'en' && (
+      <script is:inline>
+        if (window.location.pathname === '/' && !sessionStorage.getItem('lang-detected')) {
+          sessionStorage.setItem('lang-detected', '1');
+          var userLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+          if (userLang.startsWith('ro')) {
+            window.location.replace('/ro/');
+          } else if (userLang.startsWith('ru') || userLang.startsWith('uk')) {
+            window.location.replace('/ru/');
+          }
+        }
+      </script>
+    )}
+  </head>
+  <body class="min-h-screen">
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+</style>

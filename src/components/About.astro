@@ -1,0 +1,54 @@
+---
+import type { Lang } from '../i18n/ui';
+import { useTranslations, useTranslatedArray } from '../i18n/utils';
+
+interface Props { lang?: Lang; }
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
+const ta = useTranslatedArray(lang);
+---
+
+<section id="about" class="py-16 lg:py-24 px-6 lg:px-[171px]">
+  <div class="max-w-[1920px] mx-auto">
+    <h2 class="text-xl lg:text-2xl font-bold text-center mb-12">{t('about.title')}</h2>
+
+    <div class="flex flex-col lg:flex-row gap-0 rounded-2xl overflow-hidden">
+      <!-- Text content -->
+      <div class="lg:w-[55%] bg-brand-purple/40 p-8 lg:p-14 flex flex-col gap-8">
+        <p class="text-sm text-white/70 leading-relaxed">
+          {t('about.text1')}
+        </p>
+        <p class="text-sm text-white/70 leading-relaxed">
+          {t('about.text2')}
+        </p>
+        <p class="text-sm text-white/70 leading-relaxed">
+          {t('about.text3')}
+        </p>
+
+        <!-- Stats -->
+        <div class="flex gap-4 flex-wrap">
+          <div class="glass-card px-6 py-5 text-center min-w-[180px]">
+            <div class="text-xl font-bold text-brand-cyan">{t('about.stat1num')}</div>
+            <div class="text-xs text-white/60 mt-1">{t('about.stat1label')}</div>
+          </div>
+          <div class="glass-card px-6 py-5 text-center min-w-[180px]">
+            <div class="text-xl font-bold text-brand-cyan">{t('about.stat2num')}</div>
+            <div class="text-xs text-white/60 mt-1">{t('about.stat2label')}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image -->
+      <div class="lg:w-[45%] min-h-[300px] bg-brand-purple/60">
+        <img
+          src="/images/about.svg"
+          alt={t('about.aboutAlt')}
+          class="w-full h-full object-cover"
+          width="782"
+          height="525"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </div>
+</section>
