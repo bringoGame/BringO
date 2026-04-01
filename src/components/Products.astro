@@ -10,21 +10,19 @@ const t = useTranslations(lang);
 <section id="products" class="py-16 lg:py-24 px-6 lg:px-[172px]">
   <div class="max-w-[1920px] mx-auto flex flex-col gap-10">
     <!-- Product 1: Questions package -->
-    <div class="flex flex-col lg:flex-row gap-0 rounded-2xl overflow-hidden">
-      <div class="lg:w-[60%] bg-brand-purple/40 p-8 lg:p-16 flex flex-col justify-center gap-6">
-        <h2 class="text-2xl lg:text-3xl font-bold leading-tight">
+    <div class="product-row">
+      <div class="product-text-block">
+        <h2 class="product-title">
           {t('products.q_title')} <span class="text-brand-cyan">&laquo;{t('products.q_titleHighlight')}&raquo;</span>
         </h2>
-        <p class="text-sm lg:text-base text-white/70 leading-relaxed">
+        <p class="product-body">
           {t('products.q_text')}
         </p>
-        <div>
-          <a href="#contact" class="btn-primary">{t('products.q_cta')}</a>
-        </div>
+        <a href="#contact" class="product-cta">{t('products.q_cta')}</a>
       </div>
-      <div class="lg:w-[40%] min-h-[300px] lg:min-h-[500px] bg-brand-purple/60">
+      <div class="product-image-block product-image-overlay">
         <img
-          src="/images/product-questions.svg"
+          src="/images/product-questions.png"
           alt={`${t('products.q_titleHighlight')} - ${t('products.q_cta')}`}
           class="w-full h-full object-cover"
           width="614"
@@ -35,21 +33,19 @@ const t = useTranslations(lang);
     </div>
 
     <!-- Product 2: Button system -->
-    <div class="flex flex-col lg:flex-row-reverse gap-0 rounded-2xl overflow-hidden">
-      <div class="lg:w-[60%] bg-brand-purple/40 p-8 lg:p-16 flex flex-col justify-center gap-6">
-        <h2 class="text-2xl lg:text-3xl font-bold leading-tight">
+    <div class="product-row product-row-reverse">
+      <div class="product-text-block">
+        <h2 class="product-title">
           {t('products.b_title')} <span class="text-brand-cyan">{t('products.b_titleHighlight')}</span>
         </h2>
-        <p class="text-sm lg:text-base text-white/70 leading-relaxed">
+        <p class="product-body">
           {t('products.b_text')}
         </p>
-        <div>
-          <a href="#contact" class="btn-primary">{t('products.b_cta')}</a>
-        </div>
+        <a href="#contact" class="product-cta">{t('products.b_cta')}</a>
       </div>
-      <div class="lg:w-[40%] min-h-[300px] lg:min-h-[500px] bg-brand-purple/60">
+      <div class="product-image-block">
         <img
-          src="/images/product-buttons.svg"
+          src="/images/product-buttons.png"
           alt={`${t('products.b_titleHighlight')} - ${t('products.b_cta')}`}
           class="w-full h-full object-cover"
           width="614"
@@ -60,3 +56,121 @@ const t = useTranslations(lang);
     </div>
   </div>
 </section>
+
+<style>
+  .product-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .product-row-reverse {
+    flex-direction: column;
+  }
+
+  .product-text-block {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 41px;
+    padding: 72px 65px;
+    background: linear-gradient(90deg, rgba(65, 150, 211, 0.3008) 0%, rgba(235, 60, 222, 0.47) 100%);
+    border: 4px solid #57CCD5;
+    border-radius: 16px;
+  }
+
+  .product-title {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 800;
+    font-size: 36px;
+    line-height: 115%;
+    color: #FFFFFF;
+  }
+
+  .product-body {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 115%;
+    color: #FFFFFF;
+  }
+
+  .product-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 25px;
+    background: #57CCD5;
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFFFFF;
+    text-decoration: none;
+    width: fit-content;
+    transition: all 0.3s ease;
+  }
+
+  .product-cta:hover {
+    background: #4bb8c0;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(87, 204, 213, 0.4);
+  }
+
+  .product-image-block {
+    border-radius: 16px;
+    overflow: hidden;
+    min-height: 400px;
+    position: relative;
+  }
+
+  .product-image-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(226, 40, 255, 0.53);
+    mix-blend-mode: soft-light;
+    pointer-events: none;
+  }
+
+  .product-image-block img {
+    display: block;
+  }
+
+  @media (min-width: 1024px) {
+    .product-row {
+      flex-direction: row;
+    }
+
+    .product-row-reverse {
+      flex-direction: row-reverse;
+    }
+
+    .product-text-block {
+      width: 58.6%;
+      min-height: 650px;
+    }
+
+    .product-image-block {
+      width: 41.4%;
+      min-height: 650px;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .product-title {
+      font-size: 24px;
+    }
+
+    .product-body {
+      font-size: 16px;
+    }
+
+    .product-text-block {
+      padding: 32px 24px;
+      gap: 24px;
+    }
+  }
+</style>
