@@ -13,7 +13,7 @@ const t = useTranslations(lang);
 
     <div class="about-layout">
       <!-- Text content -->
-      <div class="about-text-side">
+      <div class="about-text-side order-2 lg:order-1">
         <div class="about-paragraphs">
           <p class="about-body">{t('about.text1')}</p>
           <p class="about-body">{t('about.text2')}</p>
@@ -34,7 +34,7 @@ const t = useTranslations(lang);
       </div>
 
       <!-- Image -->
-      <div class="about-image-side">
+      <div class="about-image-side order-1 lg:order-2">
         <img
           src="/images/about.png"
           alt={t('about.aboutAlt')}
@@ -149,13 +149,20 @@ const t = useTranslations(lang);
   }
 
   @media (max-width: 1023px) {
-    .about-stat-number {
-      font-size: 28px;
+    .about-stats {
+      flex-direction: column;
+      align-items: center;
+      gap: 35px;
     }
 
     .about-stat-card {
-      width: 160px;
-      height: 100px;
+      width: 194px;
+      height: 120px;
+    }
+
+    .about-image-side {
+      min-height: 192px;
+      height: 192px;
     }
   }
 </style>

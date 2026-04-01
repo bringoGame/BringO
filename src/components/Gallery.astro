@@ -38,6 +38,13 @@ const images = [
         ))}
       </div>
     </div>
+
+    <!-- Dot indicators (mobile only) -->
+    <div class="gallery-dots" id="gallery-dots">
+      {images.map((_, i) => (
+        <button class={`gallery-dot ${i === 0 ? 'gallery-dot-active' : ''}`} data-index={i} aria-label={`Slide ${i + 1}`} />
+      ))}
+    </div>
   </div>
 </section>
 
@@ -88,9 +95,44 @@ const images = [
     aspect-ratio: 782 / 450;
   }
 
+  .gallery-dots {
+    display: none;
+  }
+
+  .gallery-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 0.64px solid #57CCD5;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .gallery-dot-active {
+    background: #57CCD5;
+  }
+
   @media (max-width: 768px) {
+    .carousel-arrow {
+      display: none;
+    }
+
     .gallery-slide {
-      flex: 0 0 90%;
+      flex: 0 0 100%;
+    }
+
+    .gallery-slide img {
+      height: 192px;
+      aspect-ratio: auto;
+    }
+
+    .gallery-dots {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      margin-top: 20px;
     }
   }
 </style>
@@ -110,6 +152,14 @@ const images = [
       return slide.offsetWidth + 24; // width + gap
     }
 
+    const dots = document.querySelectorAll('#gallery-dots .gallery-dot');
+
+    function updateDots() {
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('gallery-dot-active', i === current);
+      });
+    }
+
     function goTo(index: number) {
       if (index < 0) index = 0;
       if (index >= total) index = total - 1;
@@ -117,10 +167,17 @@ const images = [
       const offset = current * getSlideWidth();
       const maxOffset = track.scrollWidth - viewport.clientWidth;
       track.style.transform = `translateX(-${Math.min(offset, maxOffset)}px)`;
+      updateDots();
     }
 
     prev?.addEventListener('click', () => goTo(current - 1));
     next?.addEventListener('click', () => goTo(current + 1));
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        goTo(Number((dot as HTMLElement).dataset.index));
+      });
+    });
 
     // Auto-play
     let interval = setInterval(() => {

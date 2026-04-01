@@ -61,7 +61,7 @@ const t = useTranslations(lang);
   .product-row {
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: 24px;
   }
 
   .product-row-reverse {
@@ -142,6 +142,7 @@ const t = useTranslations(lang);
   @media (min-width: 1024px) {
     .product-row {
       flex-direction: row;
+      gap: 0;
     }
 
     .product-row-reverse {
@@ -169,8 +170,17 @@ const t = useTranslations(lang);
     }
 
     .product-text-block {
-      padding: 32px 24px;
-      gap: 24px;
+      padding: 40px 24px;
+      gap: 45px;
+    }
+
+    .product-image-block {
+      min-height: 350px;
+      height: 350px;
+    }
+
+    .product-cta {
+      width: 100%;
     }
   }
 </style>

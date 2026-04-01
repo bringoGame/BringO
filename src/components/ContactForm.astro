@@ -310,9 +310,15 @@ const t = useTranslations(lang);
   }
 
   @media (max-width: 1023px) {
+    .contact-layout {
+      flex-direction: column;
+      gap: 24px;
+    }
+
     .contact-form-block,
     .contact-info-block {
-      padding: 32px 24px;
+      padding: 36px 24px;
+      width: 100%;
     }
 
     .contact-form-title {
@@ -325,6 +331,20 @@ const t = useTranslations(lang);
 
     .contact-link {
       font-size: 16px;
+    }
+
+    .contact-column-title {
+      font-size: 20px;
+    }
+
+    .contact-input,
+    .contact-input-line,
+    .contact-textarea {
+      width: 100%;
+    }
+
+    .contact-submit {
+      width: 100%;
     }
   }
 </style>

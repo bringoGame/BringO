@@ -178,9 +178,45 @@ const navLinks = [
     }
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 768px) {
+    .footer-content {
+      flex-direction: row;
+      flex-wrap: wrap;
+      padding: 24px 20px;
+      gap: 29px;
+    }
+
     .footer-col {
+      width: auto;
+    }
+
+    .footer-link {
+      font-size: 12px;
+    }
+
+    .footer-col:first-child {
       width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .footer-bottom-inner {
+      padding: 29px 20px;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .footer-logo {
+      height: 35px;
+    }
+
+    .footer-copyright {
+      font-size: 12px;
+    }
+
+    .footer-langs {
+      display: none;
     }
   }
 </style>

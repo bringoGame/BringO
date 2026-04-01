@@ -40,6 +40,13 @@ const avatars = ['/images/avatar-1.png', '/images/avatar-2.png', '/images/avatar
         ))}
       </div>
     </div>
+
+    <!-- Dot indicators (mobile only) -->
+    <div class="review-dots" id="review-dots">
+      {reviews.map((_, i) => (
+        <button class={`review-dot ${i === 0 ? 'review-dot-active' : ''}`} data-index={i} aria-label={`Review ${i + 1}`} />
+      ))}
+    </div>
   </div>
 </section>
 
@@ -130,13 +137,51 @@ const avatars = ['/images/avatar-1.png', '/images/avatar-2.png', '/images/avatar
     }
   }
 
+  .review-dots {
+    display: none;
+  }
+
+  .review-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 0.64px solid #57CCD5;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .review-dot-active {
+    background: #57CCD5;
+  }
+
   @media (max-width: 640px) {
+    .carousel-arrow {
+      display: none;
+    }
+
     .review-card {
-      flex: 0 0 85%;
-      min-height: 300px;
+      flex: 0 0 100%;
+      min-height: 227px;
+      border-width: 2.62px;
+      border-radius: 12px;
+      padding: 25px;
     }
     .review-text { font-size: 16px; }
-    .review-name { font-size: 18px; }
+    .review-name { font-size: 16px; }
+
+    .review-avatar {
+      width: 45px;
+      height: 45px;
+    }
+
+    .review-dots {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      margin-top: 20px;
+    }
   }
 </style>
 
@@ -158,17 +203,32 @@ const avatars = ['/images/avatar-1.png', '/images/avatar-2.png', '/images/avatar
       return Math.max(0, track.scrollWidth - viewport.clientWidth);
     }
 
+    const dots = document.querySelectorAll('#review-dots .review-dot');
+
+    function updateDots() {
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('review-dot-active', i === current);
+      });
+    }
+
     function goTo(index: number) {
       const max = getMaxScroll();
       const offset = index * getCardWidth();
-      if (offset > max) { current = 0; track.style.transform = 'translateX(0)'; return; }
-      if (offset < 0) { current = 0; track.style.transform = 'translateX(0)'; return; }
+      if (offset > max) { current = 0; track.style.transform = 'translateX(0)'; updateDots(); return; }
+      if (offset < 0) { current = 0; track.style.transform = 'translateX(0)'; updateDots(); return; }
       current = index;
       track.style.transform = `translateX(-${offset}px)`;
+      updateDots();
     }
 
     prev?.addEventListener('click', () => goTo(current - 1));
     next?.addEventListener('click', () => goTo(current + 1));
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        goTo(Number((dot as HTMLElement).dataset.index));
+      });
+    });
 
     // Mouse drag
     let isDragging = false;

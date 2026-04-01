@@ -23,33 +23,33 @@ const t = useTranslations(lang);
       </a>
     </div>
     <!-- Left: Text content -->
-    <div class="lg:w-[45%] flex flex-col gap-[65px]">
-      <h1 class="font-['Roboto_Slab'] font-semibold text-3xl sm:text-4xl lg:text-[52px] lg:leading-[115%]">
+    <div class="lg:w-[45%] flex flex-col gap-[65px] order-2 lg:order-1">
+      <h1 class="font-['Roboto_Slab'] font-semibold text-[32px] leading-[115%] lg:text-[52px] lg:leading-[115%]">
         {t('hero.title1')}
         <span class="text-brand-cyan">{t('hero.titleHighlight')}</span>
         {t('hero.title2')}
       </h1>
-      <p class="text-white text-base lg:text-[24px] lg:leading-[115%]">
+      <p class="text-white text-[16px] leading-[115%] lg:text-[24px] lg:leading-[115%]">
         {t('hero.subtitle')}
       </p>
-      <div class="flex flex-wrap gap-[34px]">
-        <a href="#contact" class="hero-btn-cyan">
+      <div class="flex flex-col lg:flex-row gap-[45px] lg:gap-[34px]">
+        <a href="#contact" class="hero-btn-cyan w-full lg:w-auto">
           {t('hero.cta1')}
         </a>
-        <a href="#franchise" class="hero-btn-magenta">
+        <a href="#franchise" class="hero-btn-magenta w-full lg:w-auto">
           {t('hero.cta2')}
         </a>
       </div>
     </div>
 
     <!-- Right: Hero image -->
-    <div class="lg:w-[55%] relative">
-      <div class="relative rounded-2xl overflow-visible">
+    <div class="lg:w-[55%] relative order-1 lg:order-2">
+      <div class="relative rounded-2xl overflow-visible max-w-[335px] lg:max-w-none mx-auto lg:mx-0">
         <!-- Blurred background copy -->
         <img
           src="/images/hero-main.png"
           alt=""
-          class="absolute inset-0 w-full h-full object-cover rounded-2xl blur-[45px] scale-105 opacity-60"
+          class="absolute inset-0 w-full h-full object-cover rounded-2xl blur-[14.6px] lg:blur-[45px] scale-105 opacity-60"
           aria-hidden="true"
         />
         <!-- Main image -->
@@ -63,24 +63,25 @@ const t = useTranslations(lang);
         />
       </div>
 
-      <!-- Feature badges row -->
-      <div class="flex flex-wrap gap-3 mt-6 justify-center lg:justify-start">
-        <div class="hero-badge">
-          <img src="/images/icon-question.svg" alt="" class="w-10 h-10" />
-          <span class="text-[16px] leading-[115%] text-center text-white">{t('hero.badge1')}</span>
-        </div>
-        <div class="hero-badge">
-          <img src="/images/icon-launch.svg" alt="" class="w-10 h-10" />
-          <span class="text-[16px] leading-[115%] text-center text-white">{t('hero.badge2')}</span>
-        </div>
-        <div class="hero-badge">
-          <img src="/images/icon-fits.svg" alt="" class="w-10 h-10" />
-          <span class="text-[16px] leading-[115%] text-center text-white">{t('hero.badge3')}</span>
-        </div>
-        <div class="hero-badge">
-          <img src="/images/icon-calendar.svg" alt="" class="w-10 h-10" />
-          <span class="text-[16px] leading-[115%] text-center text-white">{t('hero.badge4')}</span>
-        </div>
+    </div>
+
+    <!-- Feature badges row -->
+    <div class="flex flex-col items-center lg:flex-row lg:flex-wrap gap-[35px] lg:gap-3 mt-6 justify-center lg:justify-start order-3 w-full lg:w-[55%] lg:ml-auto">
+      <div class="hero-badge">
+        <img src="/images/icon-question.svg" alt="" class="w-10 h-10" />
+        <span class="text-[16px] leading-[115%] text-center text-white">{t('hero.badge1')}</span>
+      </div>
+      <div class="hero-badge">
+        <img src="/images/icon-launch.svg" alt="" class="w-10 h-10" />
+        <span class="text-[16px] leading-[115%] text-center text-white">{t('hero.badge2')}</span>
+      </div>
+      <div class="hero-badge">
+        <img src="/images/icon-fits.svg" alt="" class="w-10 h-10" />
+        <span class="text-[16px] leading-[115%] text-center text-white">{t('hero.badge3')}</span>
+      </div>
+      <div class="hero-badge">
+        <img src="/images/icon-calendar.svg" alt="" class="w-10 h-10" />
+        <span class="text-[16px] leading-[115%] text-center text-white">{t('hero.badge4')}</span>
       </div>
     </div>
   </div>
