@@ -16,16 +16,16 @@ const avatars = ['/images/avatar-1.png', '/images/avatar-2.png', '/images/avatar
     <div class="flex items-center justify-between mb-10">
       <h2 class="section-title flex-1">{t('testimonials.title')}</h2>
       <div class="flex gap-3">
-        <button id="review-prev" class="review-arrow" aria-label="Prev">
+        <button id="review-prev" class="carousel-arrow" aria-label="Prev">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
         </button>
-        <button id="review-next" class="review-arrow" aria-label="Next">
+        <button id="review-next" class="carousel-arrow" aria-label="Next">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
         </button>
       </div>
     </div>
 
-    <div class="review-viewport">
+    <div class="review-viewport" id="review-viewport">
       <div class="review-track" id="review-track">
         {reviews.map((r, i) => (
           <div class="review-card">
@@ -44,7 +44,7 @@ const avatars = ['/images/avatar-1.png', '/images/avatar-2.png', '/images/avatar
 </section>
 
 <style>
-  .review-arrow {
+  .carousel-arrow {
     width: 55px;
     height: 55px;
     border-radius: 50%;
@@ -57,8 +57,7 @@ const avatars = ['/images/avatar-1.png', '/images/avatar-2.png', '/images/avatar
     cursor: pointer;
     transition: all 0.3s ease;
   }
-
-  .review-arrow:hover {
+  .carousel-arrow:hover {
     background: #d632c9;
     transform: scale(1.05);
     box-shadow: 0 4px 15px rgba(235, 60, 222, 0.4);
@@ -71,14 +70,20 @@ const avatars = ['/images/avatar-1.png', '/images/avatar-2.png', '/images/avatar
   .review-track {
     display: flex;
     gap: 29px;
-    transition: transform 0.5s ease;
+    transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+    will-change: transform;
+    cursor: grab;
+  }
+
+  .review-track:active {
+    cursor: grabbing;
   }
 
   .review-card {
     box-sizing: border-box;
     flex: 0 0 calc(33.333% - 20px);
     min-width: 300px;
-    height: 361px;
+    min-height: 361px;
     background: linear-gradient(90deg, rgba(65, 150, 211, 0.3008) 0%, rgba(235, 60, 222, 0.47) 100%);
     border: 4px solid #5CE1E6;
     border-radius: 18px;
@@ -127,57 +132,100 @@ const avatars = ['/images/avatar-1.png', '/images/avatar-2.png', '/images/avatar
 
   @media (max-width: 640px) {
     .review-card {
-      flex: 0 0 100%;
-      height: auto;
+      flex: 0 0 85%;
       min-height: 300px;
     }
-
-    .review-text {
-      font-size: 16px;
-    }
-
-    .review-name {
-      font-size: 18px;
-    }
+    .review-text { font-size: 16px; }
+    .review-name { font-size: 18px; }
   }
 </style>
 
 <script>
-  const track = document.getElementById('review-track') as HTMLElement;
-  const prev = document.getElementById('review-prev');
-  const next = document.getElementById('review-next');
-  let pos = 0;
+  (function() {
+    const track = document.getElementById('review-track') as HTMLElement;
+    const viewport = document.getElementById('review-viewport') as HTMLElement;
+    const prev = document.getElementById('review-prev');
+    const next = document.getElementById('review-next');
+    const cards = track.querySelectorAll('.review-card');
+    let current = 0;
 
-  function getStep() {
-    const card = track?.querySelector('.review-card') as HTMLElement;
-    if (!card) return 400;
-    return card.offsetWidth + 29;
-  }
-
-  function getMax() {
-    if (!track) return 0;
-    return Math.max(0, track.scrollWidth - track.parentElement!.clientWidth);
-  }
-
-  next?.addEventListener('click', () => {
-    pos = Math.min(pos + getStep(), getMax());
-    track.style.transform = `translateX(-${pos}px)`;
-  });
-
-  prev?.addEventListener('click', () => {
-    pos = Math.max(pos - getStep(), 0);
-    track.style.transform = `translateX(-${pos}px)`;
-  });
-
-  // Touch/swipe
-  let startX = 0;
-  track?.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; });
-  track?.addEventListener('touchend', (e) => {
-    const diff = startX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) {
-      if (diff > 0) { pos = Math.min(pos + getStep(), getMax()); }
-      else { pos = Math.max(pos - getStep(), 0); }
-      track.style.transform = `translateX(-${pos}px)`;
+    function getCardWidth() {
+      const card = cards[0] as HTMLElement;
+      return card.offsetWidth + 29; // width + gap
     }
-  });
+
+    function getMaxScroll() {
+      return Math.max(0, track.scrollWidth - viewport.clientWidth);
+    }
+
+    function goTo(index: number) {
+      const max = getMaxScroll();
+      const offset = index * getCardWidth();
+      if (offset > max) { current = 0; track.style.transform = 'translateX(0)'; return; }
+      if (offset < 0) { current = 0; track.style.transform = 'translateX(0)'; return; }
+      current = index;
+      track.style.transform = `translateX(-${offset}px)`;
+    }
+
+    prev?.addEventListener('click', () => goTo(current - 1));
+    next?.addEventListener('click', () => goTo(current + 1));
+
+    // Mouse drag
+    let isDragging = false;
+    let startX = 0;
+    let startScroll = 0;
+
+    track.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startX = e.clientX;
+      startScroll = current * getCardWidth();
+      track.style.transition = 'none';
+      track.style.cursor = 'grabbing';
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const diff = startX - e.clientX;
+      const max = getMaxScroll();
+      const offset = Math.max(0, Math.min(startScroll + diff, max));
+      track.style.transform = `translateX(-${offset}px)`;
+    });
+
+    window.addEventListener('mouseup', (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+      track.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1)';
+      track.style.cursor = 'grab';
+      const diff = startX - e.clientX;
+      if (Math.abs(diff) > 50) {
+        diff > 0 ? goTo(current + 1) : goTo(current - 1);
+      } else {
+        goTo(current);
+      }
+    });
+
+    // Touch swipe
+    track.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      startScroll = current * getCardWidth();
+      track.style.transition = 'none';
+    });
+
+    track.addEventListener('touchmove', (e) => {
+      const diff = startX - e.touches[0].clientX;
+      const max = getMaxScroll();
+      const offset = Math.max(0, Math.min(startScroll + diff, max));
+      track.style.transform = `translateX(-${offset}px)`;
+    });
+
+    track.addEventListener('touchend', (e) => {
+      track.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1)';
+      const diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) {
+        diff > 0 ? goTo(current + 1) : goTo(current - 1);
+      } else {
+        goTo(current);
+      }
+    });
+  })();
 </script>

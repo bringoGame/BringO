@@ -20,35 +20,29 @@ const images = [
     <div class="flex items-center justify-between mb-10">
       <h2 class="section-title flex-1">{t('gallery.title')}</h2>
       <div class="flex gap-3">
-        <button id="gallery-prev" class="gallery-arrow" aria-label="Prev">
+        <button id="gallery-prev" class="carousel-arrow" aria-label="Prev">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
         </button>
-        <button id="gallery-next" class="gallery-arrow" aria-label="Next">
+        <button id="gallery-next" class="carousel-arrow" aria-label="Next">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
         </button>
       </div>
     </div>
 
-    <!-- 3-panel carousel -->
-    <div class="gallery-stage" id="gallery-stage">
-      <!-- Left peek -->
-      <div class="gallery-side gallery-left" id="gallery-left">
-        <img src="" alt="" class="gallery-side-img" />
-      </div>
-      <!-- Center main -->
-      <div class="gallery-center" id="gallery-center">
-        <img src="" alt="" class="gallery-center-img" />
-      </div>
-      <!-- Right peek -->
-      <div class="gallery-side gallery-right" id="gallery-right">
-        <img src="" alt="" class="gallery-side-img" />
+    <div class="gallery-viewport" id="gallery-viewport">
+      <div class="gallery-track" id="gallery-track">
+        {images.map((src, i) => (
+          <div class="gallery-slide">
+            <img src={src} alt={alts[i] || ''} loading="lazy" />
+          </div>
+        ))}
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  .gallery-arrow {
+  .carousel-arrow {
     width: 55px;
     height: 55px;
     border-radius: 50%;
@@ -61,132 +55,115 @@ const images = [
     cursor: pointer;
     transition: all 0.3s ease;
   }
-
-  .gallery-arrow:hover {
+  .carousel-arrow:hover {
     background: #d632c9;
     transform: scale(1.05);
     box-shadow: 0 4px 15px rgba(235, 60, 222, 0.4);
   }
 
-  .gallery-stage {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    min-height: 450px;
+  .gallery-viewport {
+    overflow: hidden;
+    border-radius: 16px;
   }
 
-  .gallery-center {
-    width: 782px;
-    height: 450px;
+  .gallery-track {
+    display: flex;
+    gap: 24px;
+    transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+    will-change: transform;
+  }
+
+  .gallery-slide {
+    flex: 0 0 70%;
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0px 30px 58.4px rgba(0, 0, 0, 0.25);
-    flex-shrink: 0;
-    z-index: 2;
-    transition: opacity 0.4s ease;
   }
 
-  .gallery-center-img {
+  .gallery-slide img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+    aspect-ratio: 782 / 450;
   }
 
-  .gallery-side {
-    width: 387px;
-    height: 222px;
-    border-radius: 16px;
-    overflow: hidden;
-    flex-shrink: 0;
-    z-index: 1;
-    opacity: 0.7;
-    transition: opacity 0.4s ease;
-  }
-
-  .gallery-side:hover {
-    opacity: 1;
-  }
-
-  .gallery-side-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  @media (max-width: 1200px) {
-    .gallery-side {
-      display: none;
-    }
-
-    .gallery-center {
-      width: 100%;
-      height: auto;
-      aspect-ratio: 782 / 450;
-    }
-  }
-
-  @media (max-width: 640px) {
-    .gallery-stage {
-      min-height: 250px;
+  @media (max-width: 768px) {
+    .gallery-slide {
+      flex: 0 0 90%;
     }
   }
 </style>
 
 <script>
-  const images = [
-    '/images/gallery-1.png',
-    '/images/gallery-2.png',
-    '/images/gallery-3.png',
-  ];
-  const total = images.length;
-  let current = 0;
+  (function() {
+    const track = document.getElementById('gallery-track') as HTMLElement;
+    const viewport = document.getElementById('gallery-viewport') as HTMLElement;
+    const prev = document.getElementById('gallery-prev');
+    const next = document.getElementById('gallery-next');
+    const slides = track.querySelectorAll('.gallery-slide');
+    const total = slides.length;
+    let current = 0;
 
-  const centerImg = document.querySelector('#gallery-center img') as HTMLImageElement;
-  const leftImg = document.querySelector('#gallery-left img') as HTMLImageElement;
-  const rightImg = document.querySelector('#gallery-right img') as HTMLImageElement;
-  const prev = document.getElementById('gallery-prev');
-  const next = document.getElementById('gallery-next');
-
-  function render() {
-    const leftIdx = (current - 1 + total) % total;
-    const rightIdx = (current + 1) % total;
-    centerImg.src = images[current];
-    leftImg.src = images[leftIdx];
-    rightImg.src = images[rightIdx];
-  }
-
-  prev?.addEventListener('click', () => {
-    current = (current - 1 + total) % total;
-    render();
-  });
-
-  next?.addEventListener('click', () => {
-    current = (current + 1) % total;
-    render();
-  });
-
-  // Init
-  render();
-
-  // Auto-play
-  let interval = setInterval(() => { current = (current + 1) % total; render(); }, 5000);
-  document.getElementById('gallery-stage')?.addEventListener('mouseenter', () => clearInterval(interval));
-  document.getElementById('gallery-stage')?.addEventListener('mouseleave', () => {
-    interval = setInterval(() => { current = (current + 1) % total; render(); }, 5000);
-  });
-
-  // Touch/swipe
-  let startX = 0;
-  document.getElementById('gallery-stage')?.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; });
-  document.getElementById('gallery-stage')?.addEventListener('touchend', (e) => {
-    const diff = startX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) {
-      current = diff > 0 ? (current + 1) % total : (current - 1 + total) % total;
-      render();
+    function getSlideWidth() {
+      const slide = slides[0] as HTMLElement;
+      return slide.offsetWidth + 24; // width + gap
     }
-  });
+
+    function goTo(index: number) {
+      if (index < 0) index = 0;
+      if (index >= total) index = total - 1;
+      current = index;
+      const offset = current * getSlideWidth();
+      const maxOffset = track.scrollWidth - viewport.clientWidth;
+      track.style.transform = `translateX(-${Math.min(offset, maxOffset)}px)`;
+    }
+
+    prev?.addEventListener('click', () => goTo(current - 1));
+    next?.addEventListener('click', () => goTo(current + 1));
+
+    // Auto-play
+    let interval = setInterval(() => {
+      current = current >= total - 1 ? 0 : current + 1;
+      goTo(current);
+    }, 5000);
+    viewport.addEventListener('mouseenter', () => clearInterval(interval));
+    viewport.addEventListener('mouseleave', () => {
+      interval = setInterval(() => {
+        current = current >= total - 1 ? 0 : current + 1;
+        goTo(current);
+      }, 5000);
+    });
+
+    // Touch/swipe
+    let startX = 0;
+    let isDragging = false;
+    let startTranslate = 0;
+
+    track.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+      startTranslate = current * getSlideWidth();
+      track.style.transition = 'none';
+    });
+
+    track.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const diff = startX - e.touches[0].clientX;
+      const maxOffset = track.scrollWidth - viewport.clientWidth;
+      const newOffset = Math.max(0, Math.min(startTranslate + diff, maxOffset));
+      track.style.transform = `translateX(-${newOffset}px)`;
+    });
+
+    track.addEventListener('touchend', (e) => {
+      isDragging = false;
+      track.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1)';
+      const diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) {
+        diff > 0 ? goTo(current + 1) : goTo(current - 1);
+      } else {
+        goTo(current);
+      }
+    });
+  })();
 </script>
