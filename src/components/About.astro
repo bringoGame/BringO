@@ -1,49 +1,44 @@
 ---
 import type { Lang } from '../i18n/ui';
-import { useTranslations, useTranslatedArray } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
 
 interface Props { lang?: Lang; }
 const { lang = 'en' } = Astro.props;
 const t = useTranslations(lang);
-const ta = useTranslatedArray(lang);
 ---
 
 <section id="about" class="py-16 lg:py-24 px-6 lg:px-[171px]">
   <div class="max-w-[1920px] mx-auto">
-    <h2 class="text-xl lg:text-2xl font-bold text-center mb-12">{t('about.title')}</h2>
+    <h2 class="section-title mb-12">{t('about.title')}</h2>
 
-    <div class="flex flex-col lg:flex-row gap-0 rounded-2xl overflow-hidden">
+    <div class="about-layout">
       <!-- Text content -->
-      <div class="lg:w-[55%] bg-brand-purple/40 p-8 lg:p-14 flex flex-col gap-8">
-        <p class="text-sm text-white/70 leading-relaxed">
-          {t('about.text1')}
-        </p>
-        <p class="text-sm text-white/70 leading-relaxed">
-          {t('about.text2')}
-        </p>
-        <p class="text-sm text-white/70 leading-relaxed">
-          {t('about.text3')}
-        </p>
+      <div class="about-text-side">
+        <div class="about-paragraphs">
+          <p class="about-body">{t('about.text1')}</p>
+          <p class="about-body">{t('about.text2')}</p>
+          <p class="about-body">{t('about.text3')}</p>
+        </div>
 
         <!-- Stats -->
-        <div class="flex gap-4 flex-wrap">
-          <div class="glass-card px-6 py-5 text-center min-w-[180px]">
-            <div class="text-xl font-bold text-brand-cyan">{t('about.stat1num')}</div>
-            <div class="text-xs text-white/60 mt-1">{t('about.stat1label')}</div>
+        <div class="about-stats">
+          <div class="about-stat-card">
+            <span class="about-stat-number">{t('about.stat1num')}</span>
+            <span class="about-stat-label">{t('about.stat1label')}</span>
           </div>
-          <div class="glass-card px-6 py-5 text-center min-w-[180px]">
-            <div class="text-xl font-bold text-brand-cyan">{t('about.stat2num')}</div>
-            <div class="text-xs text-white/60 mt-1">{t('about.stat2label')}</div>
+          <div class="about-stat-card">
+            <span class="about-stat-number">{t('about.stat2num')}</span>
+            <span class="about-stat-label">{t('about.stat2label')}</span>
           </div>
         </div>
       </div>
 
       <!-- Image -->
-      <div class="lg:w-[45%] min-h-[300px] bg-brand-purple/60">
+      <div class="about-image-side">
         <img
           src="/images/about.png"
           alt={t('about.aboutAlt')}
-          class="w-full h-full object-cover"
+          class="w-full h-full object-cover rounded-2xl"
           width="782"
           height="525"
           loading="lazy"
@@ -52,3 +47,115 @@ const ta = useTranslatedArray(lang);
     </div>
   </div>
 </section>
+
+<style>
+  .about-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .about-text-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 45px;
+  }
+
+  .about-paragraphs {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .about-body {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 115%;
+    color: #FFFFFF;
+  }
+
+  .about-stats {
+    display: flex;
+    gap: 35px;
+    flex-wrap: wrap;
+  }
+
+  .about-stat-card {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 194px;
+    height: 120px;
+    border: 4px solid #57CCD5;
+    border-radius: 16px;
+    filter: drop-shadow(0px 4px 21.7px rgba(92, 225, 230, 0.5));
+  }
+
+  .about-stat-number {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 800;
+    font-size: 36px;
+    line-height: 115%;
+    text-align: center;
+    color: #57CCD5;
+  }
+
+  .about-stat-label {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 115%;
+    text-align: center;
+    color: #FFFFFF;
+  }
+
+  .about-image-side {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    min-height: 300px;
+  }
+
+  /* Gradient overlay on image */
+  .about-image-side::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(92, 225, 230, 0.2) 0%, rgba(205, 0, 205, 0.2) 100%);
+    pointer-events: none;
+    border-radius: 16px;
+  }
+
+  @media (min-width: 1024px) {
+    .about-layout {
+      flex-direction: row;
+      gap: 18px;
+    }
+
+    .about-text-side {
+      width: 50%;
+      align-items: flex-start;
+    }
+
+    .about-image-side {
+      width: 50%;
+      min-height: 525px;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .about-stat-number {
+      font-size: 28px;
+    }
+
+    .about-stat-card {
+      width: 160px;
+      height: 100px;
+    }
+  }
+</style>

@@ -5,35 +5,182 @@ import { useTranslations, getLocalizedPath } from '../i18n/utils';
 interface Props { lang?: Lang; }
 const { lang = 'en' } = Astro.props;
 const t = useTranslations(lang);
+
+const navLinks = [
+  { label: t('nav.about'), href: '#about' },
+  { label: t('nav.packages'), href: '#products' },
+  { label: t('nav.franchise'), href: '#franchise' },
+  { label: t('nav.reviews'), href: '#testimonials' },
+];
 ---
 
-<footer class="py-10 px-6 lg:px-[236px] border-t border-white/10">
-  <div class="max-w-[1920px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+<footer class="footer">
+  <!-- Gradient top border -->
+  <div class="footer-border"></div>
+
+  <!-- Main footer content -->
+  <div class="footer-content">
     <!-- Logo -->
-    <a href={getLocalizedPath('/', lang)} class="shrink-0">
-      <img src="/images/logo.svg" alt="Bringo" class="h-6" />
-    </a>
-
-    <p class="text-xs text-white/40">
-      &copy; {new Date().getFullYear()} Bringo Activities. {t('footer.rights')}
-    </p>
-
-    <!-- Language links -->
-    <div class="flex items-center gap-2 text-xs">
-      <a href="/" class={`${lang === 'en' ? 'text-brand-cyan' : 'text-white/40 hover:text-brand-cyan'} transition-colors`}>EN</a>
-      <span class="text-white/20">|</span>
-      <a href="/ru/" class={`${lang === 'ru' ? 'text-brand-cyan' : 'text-white/40 hover:text-brand-cyan'} transition-colors`}>RU</a>
-      <span class="text-white/20">|</span>
-      <a href="/ro/" class={`${lang === 'ro' ? 'text-brand-cyan' : 'text-white/40 hover:text-brand-cyan'} transition-colors`}>RO</a>
+    <div class="footer-col">
+      <a href={getLocalizedPath('/', lang)} class="shrink-0">
+        <img src="/images/logo.svg" alt="Bringo" class="footer-logo" />
+      </a>
     </div>
 
-    <div class="flex items-center gap-4">
-      <a href="https://www.instagram.com/bringo_activities" target="_blank" rel="noopener noreferrer" class="text-white/50 hover:text-brand-magenta transition-colors" aria-label="Instagram">
-        <img src="/images/social-instagram.svg" alt="Instagram" class="w-5 h-5" />
-      </a>
-      <a href="https://t.me/bring_O" target="_blank" rel="noopener noreferrer" class="text-white/50 hover:text-brand-cyan transition-colors" aria-label="Telegram">
-        <img src="/images/social-telegram.svg" alt="Telegram" class="w-5 h-5" />
-      </a>
+    <!-- Nav links -->
+    <div class="footer-col">
+      {navLinks.map((link) => (
+        <a href={link.href} class="footer-link">{link.label}</a>
+      ))}
+    </div>
+
+    <!-- Legal -->
+    <div class="footer-col">
+      <a href="#" class="footer-link">Privacy Policy</a>
+    </div>
+
+    <!-- Contact -->
+    <div class="footer-col">
+      <a href="tel:+40725462986" class="footer-link">+40 725 462 986</a>
+      <a href="tel:+380731139800" class="footer-link">+380 731 139 800</a>
+      <a href="mailto:info@bring-o.net" class="footer-link footer-link-underline">info@bring-o.net</a>
+    </div>
+
+    <!-- Social -->
+    <div class="footer-col">
+      <a href="https://www.instagram.com/bringo_activities" target="_blank" rel="noopener noreferrer" class="footer-link footer-link-underline">Instagram</a>
+      <a href="https://t.me/bring_O" target="_blank" rel="noopener noreferrer" class="footer-link footer-link-underline">Telegram</a>
+      <a href="https://wa.me/380731139800" target="_blank" rel="noopener noreferrer" class="footer-link footer-link-underline">WhatsApp</a>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="footer-bottom">
+    <div class="footer-bottom-inner">
+      <span class="footer-copyright">&copy; {new Date().getFullYear()} Brain Ring. {t('footer.rights')}</span>
+
+      <!-- Language links -->
+      <div class="footer-langs">
+        <a href="/" class={lang === 'en' ? 'footer-lang-active' : 'footer-lang'}>EN</a>
+        <a href="/ru/" class={lang === 'ru' ? 'footer-lang-active' : 'footer-lang'}>RU</a>
+        <a href="/ro/" class={lang === 'ro' ? 'footer-lang-active' : 'footer-lang'}>RO</a>
+      </div>
     </div>
   </div>
 </footer>
+
+<style>
+  .footer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .footer-border {
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, rgba(65, 150, 211, 0.3008) 0%, rgba(235, 60, 222, 0.47) 100%);
+  }
+
+  .footer-content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 40px;
+    padding: 40px 170px;
+    justify-content: space-between;
+  }
+
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .footer-logo {
+    height: 65px;
+    width: auto;
+  }
+
+  .footer-link {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 115%;
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-link:hover {
+    color: #57CCD5;
+  }
+
+  .footer-link-underline {
+    text-decoration: underline;
+  }
+
+  .footer-bottom {
+    width: 100%;
+    background: linear-gradient(90deg, rgba(65, 150, 211, 0.3008) 0%, rgba(235, 60, 222, 0.47) 100%);
+  }
+
+  .footer-bottom-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 170px;
+  }
+
+  .footer-copyright {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 115%;
+    color: #FFFFFF;
+  }
+
+  .footer-langs {
+    display: flex;
+    gap: 12px;
+  }
+
+  .footer-lang,
+  .footer-lang-active {
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-lang {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .footer-lang:hover {
+    color: #57CCD5;
+  }
+
+  .footer-lang-active {
+    color: #57CCD5;
+  }
+
+  @media (max-width: 1024px) {
+    .footer-content {
+      padding: 32px 24px;
+      gap: 32px;
+    }
+
+    .footer-bottom-inner {
+      padding: 16px 24px;
+      flex-direction: column;
+      gap: 12px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .footer-col {
+      width: 100%;
+    }
+  }
+</style>

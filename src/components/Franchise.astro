@@ -8,52 +8,199 @@ const t = useTranslations(lang);
 const ta = useTranslatedArray(lang);
 
 const items = ta('franchise.items');
-const colors = ['text-brand-magenta/30', 'text-brand-cyan/30', 'text-brand-magenta/30', 'text-brand-cyan/30'];
-const layouts = ['lg:flex-row', 'lg:flex-row-reverse', 'lg:flex-row', 'lg:flex-row-reverse'];
+const layouts = ['row', 'row-reverse', 'row', 'row-reverse'];
+const textAligns = ['left', 'right', 'left', 'right'];
 const images = [
-  { src: '/images/franchise-training.png', width: '782', height: '450' },
-  { src: '/images/franchise-support.png', width: '776', height: '450' },
-  { src: '/images/franchise-marketing.png', width: '778', height: '450' },
-  { src: '/images/franchise-equipment.png', width: '783', height: '447' },
+  { src: '/images/franchise-training.png', width: '782', height: '450', overlay: false },
+  { src: '/images/franchise-support.png', width: '776', height: '450', overlay: false },
+  { src: '/images/franchise-marketing.png', width: '778', height: '450', overlay: true },
+  { src: '/images/franchise-equipment.png', width: '783', height: '447', overlay: false },
 ];
 ---
 
-<section id="franchise" class="py-16 lg:py-24 px-6 lg:px-[171px]">
+<section id="franchise" class="py-16 lg:py-24 px-6 lg:px-[170px]">
   <div class="max-w-[1920px] mx-auto">
     <!-- Intro block -->
     <div class="text-center mb-16 lg:mb-20 max-w-[1580px] mx-auto">
-      <h2 class="text-xl lg:text-2xl font-bold mb-8">
+      <h2 class="section-title mb-8">
         {t('franchise.introTitle')}
       </h2>
-      <p class="text-sm lg:text-base text-white/70 leading-relaxed max-w-[1200px] mx-auto">
+      <p class="franchise-intro-text">
         {t('franchise.introText')}
       </p>
     </div>
 
     <!-- Franchise details -->
-    <h2 class="text-xl lg:text-2xl font-bold text-center mb-12">
+    <h2 class="section-title mb-12">
       {t('franchise.detailsTitle')}
     </h2>
 
-    <div class="flex flex-col gap-8">
+    <div class="flex flex-col gap-[140px]">
       {items.map((item: any, i: number) => (
-        <div class={`flex flex-col ${layouts[i]} gap-0 rounded-2xl overflow-hidden`}>
-          <div class="lg:w-[55%] bg-brand-purple/40 p-8 lg:p-14 flex flex-col gap-4">
-            <span class={`text-6xl lg:text-8xl font-bold ${colors[i]}`}>{item.num}</span>
-            <h3 class="text-2xl font-bold">{item.title}</h3>
-            <p class="text-sm text-white/70 leading-relaxed">
+        <div class={`franchise-block franchise-block-${layouts[i]}`}>
+          <!-- Text side -->
+          <div class={`franchise-text-side ${textAligns[i] === 'right' ? 'franchise-text-right' : ''}`}>
+            <div class="franchise-number-wrap">
+              <span class="franchise-number">{item.num}</span>
+            </div>
+            <h3 class="franchise-item-title">{item.title}</h3>
+            <p class={`franchise-item-text ${textAligns[i] === 'right' ? 'text-right' : ''}`}>
               {item.text}
             </p>
           </div>
-          <div class="lg:w-[45%] min-h-[280px] bg-brand-purple/60">
-            <img src={images[i].src} alt={item.title} class="w-full h-full object-cover" width={images[i].width} height={images[i].height} loading="lazy" />
+          <!-- Image side -->
+          <div class={`franchise-image-side ${images[i].overlay ? 'franchise-image-overlay' : ''}`}>
+            <img src={images[i].src} alt={item.title} class="w-full h-full object-cover rounded-2xl" width={images[i].width} height={images[i].height} loading="lazy" />
           </div>
         </div>
       ))}
     </div>
 
-    <div class="text-center mt-12">
-      <a href="#contact" class="btn-primary">{t('franchise.cta')}</a>
+    <div class="text-center mt-16">
+      <a href="#contact" class="franchise-cta">{t('franchise.cta')}</a>
     </div>
   </div>
 </section>
+
+<style>
+  .franchise-intro-text {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 115%;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .franchise-block {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: flex-start;
+  }
+
+  .franchise-text-side {
+    position: relative;
+    flex: 1;
+  }
+
+  .franchise-text-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .franchise-number-wrap {
+    position: relative;
+    height: 240px;
+    margin-bottom: 5px;
+  }
+
+  .franchise-number {
+    font-family: 'Gilroy', 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 240px;
+    line-height: 240px;
+    color: rgba(92, 225, 230, 0.22);
+  }
+
+  .franchise-item-title {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 42px;
+    color: #57CCD5;
+    margin-bottom: 28px;
+  }
+
+  .franchise-item-text {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 115%;
+    color: #FFFFFF;
+    max-width: 580px;
+  }
+
+  .franchise-image-side {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    min-height: 300px;
+  }
+
+  .franchise-image-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(92, 225, 230, 0.2) 0%, rgba(205, 0, 205, 0.2) 100%);
+    pointer-events: none;
+  }
+
+  .franchise-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 25px;
+    background: #EB3CDE;
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .franchise-cta:hover {
+    background: #d632c9;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(235, 60, 222, 0.4);
+  }
+
+  @media (min-width: 1024px) {
+    .franchise-block {
+      flex-direction: row;
+      gap: 0;
+    }
+
+    .franchise-block-row {
+      flex-direction: row;
+    }
+
+    .franchise-block-row-reverse {
+      flex-direction: row-reverse;
+    }
+
+    .franchise-text-side {
+      width: 50%;
+    }
+
+    .franchise-image-side {
+      width: 50%;
+      min-height: 450px;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .franchise-number {
+      font-size: 120px;
+      line-height: 120px;
+    }
+
+    .franchise-number-wrap {
+      height: 120px;
+    }
+
+    .franchise-item-title {
+      font-size: 24px;
+      line-height: 32px;
+    }
+
+    .franchise-item-text {
+      text-align: left !important;
+    }
+  }
+</style>

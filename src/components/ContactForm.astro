@@ -1,108 +1,106 @@
 ---
 import type { Lang } from '../i18n/ui';
-import { useTranslations, useTranslatedArray } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
 
 interface Props { lang?: Lang; }
 const { lang = 'en' } = Astro.props;
 const t = useTranslations(lang);
-const ta = useTranslatedArray(lang);
 ---
 
 <section id="contact" class="py-16 lg:py-24 px-6 lg:px-[170px]">
   <div class="max-w-[1920px] mx-auto">
-    <h2 class="text-xl lg:text-2xl font-bold text-center mb-10">{t('contact.title')}</h2>
+    <h2 class="section-title mb-10">{t('contact.title')}</h2>
 
-    <div class="flex flex-col lg:flex-row gap-0 rounded-2xl overflow-hidden">
-      <!-- Form -->
-      <div class="lg:w-[40%] bg-brand-purple/50 p-8 lg:p-14">
-        <h3 class="text-xl font-bold mb-8">{t('contact.formTitle')}</h3>
+    <div class="contact-layout">
+      <!-- Form block -->
+      <div class="contact-form-block">
+        <h3 class="contact-form-title">{t('contact.formTitle')}</h3>
         <form
           id="contact-form"
-          class="flex flex-col gap-6"
+          class="contact-form"
           data-sending={t('contact.sending')}
           data-success={t('contact.success')}
           data-error={t('contact.error')}
         >
-          <div>
-            <label for="name" class="text-xs text-white/60 mb-1 block">{t('contact.nameLabel')}</label>
+          <div class="contact-field">
             <input
               type="text"
               id="name"
               name="name"
               required
-              class="w-full bg-transparent border-b border-white/30 pb-2 text-white text-sm outline-none focus:border-brand-cyan transition-colors placeholder:text-white/30"
-              placeholder={t('contact.namePlaceholder')}
+              class="contact-input"
+              placeholder={t('contact.nameLabel')}
             />
+            <div class="contact-input-line"></div>
           </div>
-          <div>
-            <label for="phone" class="text-xs text-white/60 mb-1 block">{t('contact.phoneLabel')}</label>
+          <div class="contact-field">
             <input
               type="tel"
               id="phone"
               name="phone"
               required
-              class="w-full bg-transparent border-b border-white/30 pb-2 text-white text-sm outline-none focus:border-brand-cyan transition-colors placeholder:text-white/30"
-              placeholder={t('contact.phonePlaceholder')}
+              class="contact-input"
+              placeholder={t('contact.phoneLabel')}
             />
+            <div class="contact-input-line"></div>
           </div>
-          <div>
-            <label for="message" class="text-xs text-white/60 mb-1 block">{t('contact.messageLabel')}</label>
+          <div class="contact-field">
             <textarea
               id="message"
               name="message"
-              rows="4"
-              class="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white text-sm outline-none focus:border-brand-cyan transition-colors resize-none placeholder:text-white/30"
-              placeholder={t('contact.messagePlaceholder')}
+              rows="5"
+              class="contact-textarea"
+              placeholder={t('contact.messageLabel')}
             ></textarea>
           </div>
-          <button type="submit" class="btn-primary w-fit">
-            {t('contact.submit')}
-          </button>
+          <button type="submit" class="contact-submit">{t('contact.submit')}</button>
           <p id="form-status" class="text-sm hidden"></p>
         </form>
       </div>
 
-      <!-- Contact info -->
-      <div class="lg:w-[60%] bg-brand-purple/30 p-8 lg:p-14 flex flex-col gap-8">
-        <div>
-          <h3 class="text-lg font-bold mb-2">{t('contact.infoTitle')}</h3>
-          <p class="text-sm text-white/70 leading-relaxed">
-            {t('contact.infoText')}
-          </p>
+      <!-- Info block -->
+      <div class="contact-info-block">
+        <div class="contact-info-header">
+          <h3 class="contact-info-title">{t('contact.infoTitle')}</h3>
+          <p class="contact-info-desc">{t('contact.infoText')}</p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
-          <!-- Left: Phone, email, location -->
-          <div class="flex flex-col gap-5">
-            <h4 class="text-sm font-semibold text-white/50">{t('contact.contactsLabel')}</h4>
-            <div class="flex items-center gap-3">
-              <img src="/images/icon-phone.svg" alt="" class="w-5 h-5 shrink-0" />
-              <a href="tel:+40725462986" class="text-sm text-white/80 hover:text-brand-cyan transition-colors">+40 725 462 986</a>
-            </div>
-            <div class="flex items-center gap-3">
-              <img src="/images/icon-email.svg" alt="" class="w-5 h-5 shrink-0" />
-              <a href="mailto:info@bring-o.net" class="text-sm text-white/80 hover:text-brand-cyan transition-colors">info@bring-o.net</a>
-            </div>
-            <div class="flex items-center gap-3">
-              <img src="/images/icon-city.svg" alt="" class="w-5 h-5 shrink-0" />
-              <span class="text-sm text-white/80">{t('contact.city')}</span>
+        <div class="contact-details">
+          <!-- Contacts column -->
+          <div class="contact-column">
+            <h4 class="contact-column-title">{t('contact.contactsLabel')}</h4>
+            <div class="contact-links">
+              <div class="contact-link-row">
+                <img src="/images/icon-phone.svg" alt="" class="contact-icon" />
+                <a href="tel:+40725462986" class="contact-link">+40 725 462 986</a>
+              </div>
+              <div class="contact-link-row">
+                <img src="/images/icon-email.svg" alt="" class="contact-icon" />
+                <a href="mailto:info@bring-o.net" class="contact-link contact-link-underline">info@bring-o.net</a>
+              </div>
+              <div class="contact-link-row">
+                <img src="/images/icon-city.svg" alt="" class="contact-icon" />
+                <span class="contact-link">{t('contact.city')}</span>
+              </div>
             </div>
           </div>
 
-          <!-- Right: Social -->
-          <div class="flex flex-col gap-5">
-            <h4 class="text-sm font-semibold text-white/50">{t('contact.socialLabel')}</h4>
-            <div class="flex items-center gap-3">
-              <img src="/images/icon-instagram.svg" alt="" class="w-5 h-5 shrink-0" />
-              <a href="https://www.instagram.com/bringo_activities" target="_blank" rel="noopener noreferrer" class="text-sm text-white/80 hover:text-brand-magenta transition-colors">bringo_activities</a>
-            </div>
-            <div class="flex items-center gap-3">
-              <img src="/images/icon-telegram.svg" alt="" class="w-5 h-5 shrink-0" />
-              <a href="https://t.me/bring_O" target="_blank" rel="noopener noreferrer" class="text-sm text-white/80 hover:text-brand-cyan transition-colors">bring_O</a>
-            </div>
-            <div class="flex items-center gap-3">
-              <img src="/images/icon-whatsapp.svg" alt="" class="w-5 h-5 shrink-0" />
-              <a href="tel:+380731139800" class="text-sm text-white/80 hover:text-brand-cyan transition-colors">+380 731 139 800</a>
+          <!-- Social column -->
+          <div class="contact-column">
+            <h4 class="contact-column-title">{t('contact.socialLabel')}</h4>
+            <div class="contact-links">
+              <div class="contact-link-row">
+                <img src="/images/icon-instagram.svg" alt="" class="contact-icon" />
+                <a href="https://www.instagram.com/bringo_activities" target="_blank" rel="noopener noreferrer" class="contact-link contact-link-underline">bringo_activities</a>
+              </div>
+              <div class="contact-link-row">
+                <img src="/images/icon-whatsapp.svg" alt="" class="contact-icon" />
+                <a href="tel:+380731139800" class="contact-link contact-link-underline">+380 731 139 800</a>
+              </div>
+              <div class="contact-link-row">
+                <img src="/images/icon-telegram.svg" alt="" class="contact-icon" />
+                <a href="https://t.me/bring_O" target="_blank" rel="noopener noreferrer" class="contact-link contact-link-underline">bring_O</a>
+              </div>
             </div>
           </div>
         </div>
@@ -110,6 +108,226 @@ const ta = useTranslatedArray(lang);
     </div>
   </div>
 </section>
+
+<style>
+  .contact-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .contact-form-block,
+  .contact-info-block {
+    box-sizing: border-box;
+    background: linear-gradient(90deg, rgba(65, 150, 211, 0.3008) 0%, rgba(235, 60, 222, 0.47) 100%);
+    border: 4px solid #57CCD5;
+    border-radius: 16px;
+    padding: 62px 50px;
+  }
+
+  .contact-form-title {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 91%;
+    color: #FFFFFF;
+    margin-bottom: 50px;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .contact-field {
+    position: relative;
+  }
+
+  .contact-input {
+    width: 290px;
+    max-width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 126%;
+    color: #FFFFFF;
+    padding: 8px 0;
+  }
+
+  .contact-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .contact-input-line {
+    width: 290px;
+    max-width: 100%;
+    height: 1px;
+    background: #FFFFFF;
+  }
+
+  .contact-textarea {
+    width: 290px;
+    max-width: 100%;
+    height: 130px;
+    background: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    border-radius: 4px;
+    padding: 12px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 126%;
+    color: #000000;
+    resize: none;
+    outline: none;
+  }
+
+  .contact-textarea::placeholder {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+  .contact-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 25px;
+    width: fit-content;
+    background: #EB3CDE;
+    border-radius: 10px;
+    border: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .contact-submit:hover {
+    background: #d632c9;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(235, 60, 222, 0.4);
+  }
+
+  .contact-info-header {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    margin-bottom: 45px;
+  }
+
+  .contact-info-title {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 115%;
+    color: #FFFFFF;
+  }
+
+  .contact-info-desc {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 115%;
+    color: #FFFFFF;
+  }
+
+  .contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .contact-column-title {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 115%;
+    color: #FFFFFF;
+    margin-bottom: 25px;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .contact-link-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .contact-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  .contact-link {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .contact-link:hover {
+    color: #57CCD5;
+  }
+
+  .contact-link-underline {
+    text-decoration: underline;
+  }
+
+  @media (min-width: 1024px) {
+    .contact-layout {
+      flex-direction: row;
+    }
+
+    .contact-form-block {
+      width: 39%;
+      min-height: 553px;
+    }
+
+    .contact-info-block {
+      width: 61%;
+      min-height: 553px;
+    }
+
+    .contact-details {
+      flex-direction: row;
+      gap: 58px;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .contact-form-block,
+    .contact-info-block {
+      padding: 32px 24px;
+    }
+
+    .contact-form-title {
+      font-size: 24px;
+    }
+
+    .contact-info-desc {
+      font-size: 16px;
+    }
+
+    .contact-link {
+      font-size: 16px;
+    }
+  }
+</style>
 
 <script>
   const form = document.getElementById('contact-form') as HTMLFormElement;

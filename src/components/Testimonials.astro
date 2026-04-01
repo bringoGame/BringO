@@ -7,38 +7,177 @@ const { lang = 'en' } = Astro.props;
 const t = useTranslations(lang);
 const ta = useTranslatedArray(lang);
 
-const reviews = ta('testimonials.items');
+const reviews = ta('testimonials.items') as {text: string, name: string}[];
 const avatars = ['/images/avatar-1.png', '/images/avatar-2.png', '/images/avatar-3.png'];
 ---
 
 <section id="testimonials" class="py-16 lg:py-24 px-6 lg:px-[166px]">
   <div class="max-w-[1920px] mx-auto">
     <div class="flex items-center justify-between mb-10">
-      <h2 class="text-xl lg:text-2xl font-bold text-center flex-1">{t('testimonials.title')}</h2>
-      <div class="hidden sm:flex gap-3">
-        <button class="w-[55px] h-[55px] rounded-full border border-white/20 flex items-center justify-center hover:border-brand-cyan/50 transition-colors" aria-label="Prev">
+      <h2 class="section-title flex-1">{t('testimonials.title')}</h2>
+      <div class="flex gap-3">
+        <button id="review-prev" class="review-arrow" aria-label="Prev">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
         </button>
-        <button class="w-[55px] h-[55px] rounded-full border border-white/20 flex items-center justify-center hover:border-brand-cyan/50 transition-colors" aria-label="Next">
+        <button id="review-next" class="review-arrow" aria-label="Next">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
         </button>
       </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      {reviews.map((r: any, i: number) => (
-        <div class="glass-card p-8 flex flex-col justify-between gap-8">
-          <p class="text-base text-white/80 leading-relaxed italic">
-            &ldquo;{r.text}&rdquo;
-          </p>
-          <div class="flex items-center gap-4">
-            <div class="w-[60px] h-[60px] rounded-full overflow-hidden bg-brand-purple/60 shrink-0">
-              <img src={avatars[i]} alt={r.name} class="w-full h-full object-cover" loading="lazy" />
+    <div class="review-viewport">
+      <div class="review-track" id="review-track">
+        {reviews.map((r, i) => (
+          <div class="review-card">
+            <p class="review-text">{r.text}</p>
+            <div class="review-author">
+              <div class="review-avatar">
+                <img src={avatars[i]} alt={r.name} class="w-full h-full object-cover" loading="lazy" />
+              </div>
+              <span class="review-name">{r.name}</span>
             </div>
-            <span class="font-semibold text-sm">{r.name}</span>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   </div>
 </section>
+
+<style>
+  .review-arrow {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: #EB3CDE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .review-arrow:hover {
+    background: #d632c9;
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(235, 60, 222, 0.4);
+  }
+
+  .review-viewport {
+    overflow: hidden;
+  }
+
+  .review-track {
+    display: flex;
+    gap: 29px;
+    transition: transform 0.5s ease;
+  }
+
+  .review-card {
+    box-sizing: border-box;
+    flex: 0 0 calc(33.333% - 20px);
+    min-width: 300px;
+    height: 361px;
+    background: linear-gradient(90deg, rgba(65, 150, 211, 0.3008) 0%, rgba(235, 60, 222, 0.47) 100%);
+    border: 4px solid #5CE1E6;
+    border-radius: 18px;
+    padding: 37px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .review-text {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 115%;
+    color: #FFFFFF;
+  }
+
+  .review-author {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+
+  .review-avatar {
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: linear-gradient(90deg, #7C26D1 0%, #F25C3A 100%);
+  }
+
+  .review-name {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 27px;
+    color: #FFFFFF;
+  }
+
+  @media (max-width: 1024px) {
+    .review-card {
+      flex: 0 0 calc(50% - 15px);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .review-card {
+      flex: 0 0 100%;
+      height: auto;
+      min-height: 300px;
+    }
+
+    .review-text {
+      font-size: 16px;
+    }
+
+    .review-name {
+      font-size: 18px;
+    }
+  }
+</style>
+
+<script>
+  const track = document.getElementById('review-track') as HTMLElement;
+  const prev = document.getElementById('review-prev');
+  const next = document.getElementById('review-next');
+  let pos = 0;
+
+  function getStep() {
+    const card = track?.querySelector('.review-card') as HTMLElement;
+    if (!card) return 400;
+    return card.offsetWidth + 29;
+  }
+
+  function getMax() {
+    if (!track) return 0;
+    return Math.max(0, track.scrollWidth - track.parentElement!.clientWidth);
+  }
+
+  next?.addEventListener('click', () => {
+    pos = Math.min(pos + getStep(), getMax());
+    track.style.transform = `translateX(-${pos}px)`;
+  });
+
+  prev?.addEventListener('click', () => {
+    pos = Math.max(pos - getStep(), 0);
+    track.style.transform = `translateX(-${pos}px)`;
+  });
+
+  // Touch/swipe
+  let startX = 0;
+  track?.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; });
+  track?.addEventListener('touchend', (e) => {
+    const diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) { pos = Math.min(pos + getStep(), getMax()); }
+      else { pos = Math.max(pos - getStep(), 0); }
+      track.style.transform = `translateX(-${pos}px)`;
+    }
+  });
+</script>

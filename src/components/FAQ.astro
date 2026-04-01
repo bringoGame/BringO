@@ -10,27 +10,22 @@ const ta = useTranslatedArray(lang);
 const faqs = ta('faq.items');
 ---
 
-<section class="py-16 lg:py-24 px-6 lg:px-[546px]">
-  <div class="max-w-[830px] mx-auto">
-    <h2 class="text-xl lg:text-2xl font-bold text-center mb-10">{t('faq.title')}</h2>
+<section class="py-16 lg:py-24 px-6">
+  <div class="faq-container">
+    <h2 class="section-title mb-12">{t('faq.title')}</h2>
 
-    <div class="flex flex-col gap-3" id="faq-container">
+    <div class="faq-list" id="faq-list">
       {faqs.map((faq: any, i: number) => (
-        <div class="gradient-border">
-          <div class="gradient-border-inner">
-            <button
-              class="faq-toggle w-full flex items-center justify-between p-6 text-left"
-              aria-expanded={faq.open ? 'true' : 'false'}
-              data-index={i}
-            >
-              <span class="text-base lg:text-lg font-semibold pr-4">{faq.question}</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div class={`faq-content overflow-hidden transition-all duration-300 ${faq.open ? 'max-h-[500px]' : 'max-h-0'}`}>
-              <p class="px-6 pb-6 text-sm text-white/70 leading-relaxed">{faq.answer}</p>
-            </div>
+        <div class={`faq-item ${faq.open ? 'faq-item-open' : ''}`} data-faq={i}>
+          <button class="faq-toggle" aria-expanded={faq.open ? 'true' : 'false'}>
+            <span class="faq-question">{faq.question}</span>
+            <span class="faq-icon">
+              <span class="faq-icon-h"></span>
+              <span class="faq-icon-v"></span>
+            </span>
+          </button>
+          <div class="faq-answer-wrap">
+            <p class="faq-answer">{faq.answer}</p>
           </div>
         </div>
       ))}
@@ -38,24 +33,147 @@ const faqs = ta('faq.items');
   </div>
 </section>
 
+<style>
+  .faq-container {
+    max-width: 828px;
+    margin: 0 auto;
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .faq-item {
+    box-sizing: border-box;
+    border: 1.21px solid #5CE1E6;
+    border-radius: 19px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .faq-toggle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px 30px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    gap: 20px;
+  }
+
+  .faq-question {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 115%;
+    color: #FFFFFF;
+  }
+
+  .faq-icon {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  .faq-icon-h,
+  .faq-icon-v {
+    position: absolute;
+    background: #5CE1E6;
+    transition: transform 0.3s ease;
+  }
+
+  .faq-icon-h {
+    width: 20px;
+    height: 2px;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+  }
+
+  .faq-icon-v {
+    width: 2px;
+    height: 20px;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+  }
+
+  .faq-item-open .faq-icon-v {
+    transform: translateX(-50%) rotate(90deg);
+  }
+
+  .faq-answer-wrap {
+    overflow: hidden;
+    transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    height: 0;
+  }
+
+  .faq-answer {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 115%;
+    color: #FFFFFF;
+    padding: 0 30px 30px;
+  }
+
+  @media (max-width: 640px) {
+    .faq-question {
+      font-size: 18px;
+    }
+
+    .faq-answer {
+      font-size: 16px;
+    }
+
+    .faq-toggle {
+      padding: 20px;
+    }
+
+    .faq-answer {
+      padding: 0 20px 20px;
+    }
+  }
+</style>
+
 <script>
   document.querySelectorAll('.faq-toggle').forEach((btn) => {
     btn.addEventListener('click', () => {
-      const content = btn.nextElementSibling as HTMLElement;
-      const icon = btn.querySelector('svg')!;
-      const isOpen = content.classList.contains('max-h-[500px]');
+      const item = btn.closest('.faq-item') as HTMLElement;
+      const wrap = item.querySelector('.faq-answer-wrap') as HTMLElement;
+      const isOpen = item.classList.contains('faq-item-open');
 
       if (isOpen) {
-        content.classList.remove('max-h-[500px]');
-        content.classList.add('max-h-0');
-        icon.classList.remove('rotate-180');
+        // Collapse: set explicit height first, then animate to 0
+        wrap.style.height = wrap.scrollHeight + 'px';
+        requestAnimationFrame(() => {
+          wrap.style.height = '0px';
+        });
+        item.classList.remove('faq-item-open');
         btn.setAttribute('aria-expanded', 'false');
       } else {
-        content.classList.add('max-h-[500px]');
-        content.classList.remove('max-h-0');
-        icon.classList.add('rotate-180');
+        // Expand: animate from 0 to scrollHeight
+        wrap.style.height = wrap.scrollHeight + 'px';
+        item.classList.add('faq-item-open');
         btn.setAttribute('aria-expanded', 'true');
+        // After transition, set auto so it adjusts if content changes
+        wrap.addEventListener('transitionend', () => {
+          if (item.classList.contains('faq-item-open')) {
+            wrap.style.height = 'auto';
+          }
+        }, { once: true });
       }
     });
+  });
+
+  // Set initial open item height
+  document.querySelectorAll('.faq-item-open .faq-answer-wrap').forEach((wrap) => {
+    (wrap as HTMLElement).style.height = 'auto';
   });
 </script>
