@@ -92,7 +92,7 @@ body {
 }
 
 /* Section spacing */
-section, footer, nav {
+section, footer, nav, main {
   position: relative;
   z-index: 1;
 }

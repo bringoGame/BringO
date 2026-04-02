@@ -11,13 +11,13 @@ const t = ui[lang];
 <Layout lang={lang} title="Privacy Policy — Brain Ring">
   <Navbar lang={lang} />
   <main class="px-6 lg:px-[170px] py-16 lg:py-24 pt-[100px]">
-    <h1 class="section-title mb-4">{t.privacy.title}</h1>
-    <p class="text-white/60 font-['Roboto'] text-sm mb-12">{t.privacy.lastUpdated}</p>
+    <h1 class="font-['Roboto_Slab'] font-extrabold text-[36px] leading-[115%] uppercase text-white mb-4">{t.privacy.title}</h1>
+    <p class="text-white font-['Roboto'] text-sm mb-12">{t.privacy.lastUpdated}</p>
 
     {t.privacy.sections.map((section) => (
-      <section class="mb-10">
-        <h2 class="text-white font-['Roboto_Slab'] font-semibold text-xl lg:text-2xl mb-4">{section.heading}</h2>
-        <p class="text-white/80 font-['Roboto'] text-base leading-relaxed">{section.text}</p>
+      <section class="mb-14">
+        <h2 class="text-white font-['Roboto_Slab'] font-semibold text-xl lg:text-2xl mb-6">{section.heading}</h2>
+        <p class="text-white font-['Roboto'] text-base leading-relaxed">{section.text}</p>
       </section>
     ))}
   </main>
