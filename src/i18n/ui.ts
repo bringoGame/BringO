@@ -182,6 +182,40 @@ export const ui = {
         },
       ],
     },
+    privacy: {
+      title: 'Privacy Policy',
+      lastUpdated: 'Last updated: April 2026',
+      sections: [
+        {
+          heading: 'Data We Collect',
+          text: 'When you use the contact form on our website, we collect your name, phone number, and the message you submit. We do not collect any other personal data through the form. This information is provided voluntarily and is necessary for us to respond to your inquiry.',
+        },
+        {
+          heading: 'How We Use Your Data',
+          text: 'The data you provide through the contact form is used solely to respond to your inquiry and, where relevant, to improve the quality of our services. We do not sell, rent, or share your personal information with third parties for marketing purposes.',
+        },
+        {
+          heading: 'Data Storage',
+          text: 'Your data is stored securely on Supabase servers located within the European Union. All data is encrypted both in transit and at rest. We retain your contact form submissions only for as long as necessary to fulfill the purpose for which they were collected.',
+        },
+        {
+          heading: 'Google Analytics',
+          text: 'We use Google Analytics 4 (measurement ID: G-8K9SDZX4J7) to understand how visitors interact with our website. Google Analytics collects anonymized data such as pages visited, session duration, and general geographic location. IP addresses are anonymized. This service uses cookies to distinguish unique users. You can opt out of Google Analytics by installing the Google Analytics Opt-out Browser Add-on.',
+        },
+        {
+          heading: 'Your Rights',
+          text: 'Under the General Data Protection Regulation (GDPR), you have the right to access the personal data we hold about you, request correction of inaccurate data, request deletion of your data, request data portability, and object to or restrict processing of your data. To exercise any of these rights, please contact us using the details below.',
+        },
+        {
+          heading: 'Contact for Data Requests',
+          text: 'If you wish to exercise your data rights or have any questions about how we handle your personal information, please contact us at info@bring-o.net. We are based in Bucharest, Romania, and we aim to respond to all data-related requests within 30 days.',
+        },
+        {
+          heading: 'Changes to This Policy',
+          text: 'We may update this privacy policy from time to time to reflect changes in our practices or applicable regulations. Any updates will be posted on this page with a revised "last updated" date. We encourage you to review this policy periodically.',
+        },
+      ],
+    },
     footer: {
       rights: 'All rights reserved.',
     },
@@ -217,33 +251,33 @@ export const ui = {
         {
           icon: '🧠',
           title: 'Эрудиция и логика',
-          text: 'Участники делятся на команды и отвечают на вопросы из различных областей знаний: истории, науки, культуры, логики и современного мира. Игра развивает эрудицию, командное взаимодействие и быстроту мышления.',
+          text: 'Участники делятся на команды и отвечают на вопросы из различных областей знаний: истории, науки, культуры, логики и современного мира. Это классическая интеллектуальная игра, которая развивает эрудицию, командное взаимодействие и быстроту мышления.',
         },
         {
           icon: '🏆',
           title: 'Соревнование команд',
-          text: 'Команды соревнуются между собой за правильные ответы и набирают очки. Побеждает команда, которая быстрее реагирует и дает больше правильных ответов. Формат соревнования делает игру динамичной и захватывающей для участников и зрителей.',
+          text: 'Команды соревнуются между собой за правильные ответы и набирают очки. Побеждает команда, которая быстрее реагирует и дает больше правильных ответов. Такой квиз-формат делает игру динамичной и захватывающей для участников и зрителей.',
         },
         {
           icon: '🔘',
           title: 'Кнопочная система',
-          text: 'Для фиксации ответа используется специальная кнопочная система. Команда, которая первой нажимает кнопку после вопроса, получает возможность ответить. Это добавляет игре темпа, интриги и настоящего драйва.',
+          text: 'Для фиксации ответа используются беспроводные кнопки с системой первого нажатия. Команда, которая первой нажимает кнопку после вопроса, получает возможность ответить. Это добавляет игре темпа, интриги и настоящего драйва.',
         },
         {
           icon: '🎯',
           title: 'Универсальный формат',
-          text: 'Концепция игры универсальна и легко адаптируется под разные аудитории. Брэйн Ринг отлично подходит для школьных мероприятий, университетских игр, корпоративных тимбилдингов и квиз-клубов.',
+          text: 'Концепция игры универсальна и легко адаптируется под разные аудитории. Брэйн Ринг отлично подходит для школьных мероприятий, университетских игр, корпоративных тимбилдингов и квиз-клубов. Можно также проводить онлайн викторину для удалённых команд.',
         },
       ],
     },
     products: {
       q_title: 'Получите готовый пакет вопросов для игры',
       q_titleHighlight: 'Брэйн Ринг',
-      q_text: 'Получите готовый пакет вопросов для проведения интеллектуальной игры «Брэйн Ринг». Материалы позволяют быстро провести игру на вашем мероприятии, в школе, университете. Наши вопросы сделаны так, чтобы играть было интересно всем — и новичкам, и тем, кто уже не первый раз участвует в интеллектуальных играх. Они не требуют специальной подготовки или узких знаний: важнее логика, сообразительность и умение мыслить нестандартно. При этом задания разнообразные, не повторяются и держат внимание до конца игры. Вы получаете уже готовое решение — не нужно тратить время на составление вопросов, проверку или адаптацию под формат. Всё можно сразу использовать в игре.',
+      q_text: 'Получите готовый пакет вопросов для проведения интеллектуальной игры «Брэйн Ринг». Это вопросы для брэйн-ринга на разные темы, которые позволяют быстро провести игру на вашем мероприятии, в школе, университете. Наши вопросы сделаны так, чтобы играть было интересно всем — и новичкам, и тем, кто уже не первый раз участвует в интеллектуальных играх. Они не требуют специальной подготовки или узких знаний: важнее логика, сообразительность и умение мыслить нестандартно. При этом задания разнообразные, не повторяются и держат внимание до конца игры. Вы получаете уже готовое решение — не нужно тратить время на составление вопросов, проверку или адаптацию под формат. Всё можно сразу использовать в игре.',
       q_cta: 'Купить вопросы',
       b_title: 'Кнопочная система для',
       b_titleHighlight: 'интеллектуальных игр',
-      b_text: 'Наша кнопочная система полностью рассчитана для проведения интеллектуальных игр. Она автоматически определяет, кто из игроков или команд нажал кнопку первым. Подходит для таких форматов, как «Брэйн-ринг», «Своя игра», и других викторин в формате «вопрос–ответ». Система работает по заданному алгоритму: фиксирует первое нажатие и блокирует остальные кнопки, благодаря чему исключаются спорные ситуации и упрощается проведение игры. Система подключается к вашему компьютеру или планшету и работает в формате веб-приложения. Внутри у вас есть всё необходимое для проведения игры: вы можете зачитывать вопросы прямо с приложения, начислять баллы, вести рейтинг команд и в реальном времени отслеживать, кто выходит в лидеры. Также доступны таймер для контроля времени ответа и звуковые сигналы, которые фиксируют нажатия и добавляют игре динамику и напряжение. Всё управление игрой — в одном удобном интерфейсе.',
+      b_text: 'Наша беспроводная кнопочная система полностью рассчитана для проведения интеллектуальных игр. Она автоматически определяет, кто из игроков или команд нажал кнопку первым, — это система первого нажатия. Подходит для таких форматов, как «Брэйн-ринг», «Своя игра», и других викторин в формате «вопрос–ответ». Система работает по заданному алгоритму: фиксирует первое нажатие и блокирует остальные кнопки, благодаря чему исключаются спорные ситуации и упрощается проведение игры. Система подключается к вашему компьютеру или планшету и работает в формате веб-приложения. Внутри у вас есть всё необходимое для проведения игры: вы можете зачитывать вопросы прямо с приложения, начислять баллы, вести рейтинг команд и в реальном времени отслеживать, кто выходит в лидеры. Также доступны таймер для контроля времени ответа и звуковые сигналы, которые фиксируют нажатия и добавляют игре динамику и напряжение. Всё управление игрой — в одном удобном интерфейсе.',
       b_cta: 'Купить кнопочную систему',
     },
     whyChooseUs: {
@@ -324,6 +358,40 @@ export const ui = {
         { question: 'Можно ли играть онлайн?', answer: 'Да, наша система поддерживает онлайн-формат. Мы можем предоставить рекомендации по организации онлайн-игр.' },
         { question: 'Можно ли купить разовый пакет?', answer: 'Да, мы предлагаем как разовые пакеты вопросов, так и подписку на регулярное обновление материалов.' },
         { question: 'Подходит ли игра для корпоративных мероприятий?', answer: 'Абсолютно! Брэйн Ринг отлично подходит для тимбилдингов, корпоративных вечеринок и мероприятий. Мы адаптируем вопросы под вашу аудиторию.' },
+      ],
+    },
+    privacy: {
+      title: 'Политика конфиденциальности',
+      lastUpdated: 'Последнее обновление: апрель 2026',
+      sections: [
+        {
+          heading: 'Какие данные мы собираем',
+          text: 'При использовании контактной формы на нашем сайте мы собираем ваше имя, номер телефона и текст сообщения. Мы не собираем никаких иных персональных данных через форму. Эта информация предоставляется вами добровольно и необходима для обработки вашего обращения.',
+        },
+        {
+          heading: 'Как мы используем ваши данные',
+          text: 'Данные, предоставленные через контактную форму, используются исключительно для ответа на ваш запрос и, при необходимости, для улучшения качества наших услуг. Мы не продаём, не сдаём в аренду и не передаём ваши персональные данные третьим лицам в маркетинговых целях.',
+        },
+        {
+          heading: 'Хранение данных',
+          text: 'Ваши данные хранятся на защищённых серверах Supabase, расположенных в Европейском Союзе. Все данные шифруются как при передаче, так и при хранении. Мы сохраняем данные из контактной формы только на протяжении времени, необходимого для выполнения цели, ради которой они были собраны.',
+        },
+        {
+          heading: 'Google Analytics',
+          text: 'Мы используем Google Analytics 4 (идентификатор: G-8K9SDZX4J7) для анализа взаимодействия посетителей с нашим сайтом. Google Analytics собирает анонимизированные данные: просмотренные страницы, длительность сессий, общее географическое расположение. IP-адреса анонимизируются. Сервис использует файлы cookie для различения пользователей. Вы можете отказаться от Google Analytics, установив специальное расширение для браузера.',
+        },
+        {
+          heading: 'Ваши права',
+          text: 'В соответствии с Общим регламентом защиты данных (GDPR) вы имеете право на доступ к своим персональным данным, исправление неточных данных, удаление данных, перенос данных, а также на ограничение или возражение против их обработки. Для реализации любого из этих прав свяжитесь с нами по указанным ниже контактам.',
+        },
+        {
+          heading: 'Контакт для запросов о данных',
+          text: 'Если вы хотите воспользоваться своими правами в отношении данных или у вас есть вопросы о том, как мы обрабатываем вашу персональную информацию, свяжитесь с нами по адресу info@bring-o.net. Мы находимся в Бухаресте, Румыния, и стремимся отвечать на все запросы, связанные с данными, в течение 30 дней.',
+        },
+        {
+          heading: 'Изменения в данной политике',
+          text: 'Мы можем время от времени обновлять эту политику конфиденциальности для отражения изменений в нашей практике или применимом законодательстве. Все обновления будут размещены на этой странице с указанием новой даты последнего обновления. Рекомендуем периодически просматривать эту политику.',
+        },
       ],
     },
     footer: {
@@ -468,6 +536,40 @@ export const ui = {
         { question: 'Se poate juca online?', answer: 'Da, sistemul nostru suportă formatul online. Putem oferi recomandări pentru organizarea jocurilor online.' },
         { question: 'Pot cumpăra un pachet unic?', answer: 'Da, oferim atât pachete unice de întrebări, cât și abonamente cu actualizare regulată a materialelor.' },
         { question: 'Este jocul potrivit pentru evenimente corporative?', answer: 'Absolut! Brain Ring este perfect pentru team-building-uri, petreceri corporative și evenimente. Adaptăm întrebările la publicul dumneavoastră.' },
+      ],
+    },
+    privacy: {
+      title: 'Politica de confidențialitate',
+      lastUpdated: 'Ultima actualizare: aprilie 2026',
+      sections: [
+        {
+          heading: 'Datele pe care le colectăm',
+          text: 'Atunci când utilizați formularul de contact de pe site-ul nostru, colectăm numele, numărul de telefon și mesajul transmis. Nu colectăm alte date personale prin intermediul formularului. Aceste informații sunt furnizate în mod voluntar și sunt necesare pentru a răspunde solicitării dumneavoastră.',
+        },
+        {
+          heading: 'Cum utilizăm datele dumneavoastră',
+          text: 'Datele furnizate prin formularul de contact sunt utilizate exclusiv pentru a răspunde solicitării dumneavoastră și, acolo unde este relevant, pentru a îmbunătăți calitatea serviciilor noastre. Nu vindem, nu închiriem și nu partajăm informațiile dumneavoastră personale cu terțe părți în scopuri de marketing.',
+        },
+        {
+          heading: 'Stocarea datelor',
+          text: 'Datele dumneavoastră sunt stocate în siguranță pe serverele Supabase, situate în Uniunea Europeană. Toate datele sunt criptate atât în tranzit, cât și în repaus. Păstrăm datele din formularul de contact doar atât timp cât este necesar pentru îndeplinirea scopului pentru care au fost colectate.',
+        },
+        {
+          heading: 'Google Analytics',
+          text: 'Utilizăm Google Analytics 4 (ID de măsurare: G-8K9SDZX4J7) pentru a înțelege modul în care vizitatorii interacționează cu site-ul nostru. Google Analytics colectează date anonimizate, cum ar fi paginile vizitate, durata sesiunilor și locația geografică generală. Adresele IP sunt anonimizate. Acest serviciu folosește cookie-uri pentru a distinge utilizatorii unici. Puteți renunța la Google Analytics instalând extensia Google Analytics Opt-out pentru browser.',
+        },
+        {
+          heading: 'Drepturile dumneavoastră',
+          text: 'Conform Regulamentului General privind Protecția Datelor (GDPR), aveți dreptul de a accesa datele personale pe care le deținem despre dumneavoastră, de a solicita corectarea datelor inexacte, ștergerea datelor, portabilitatea datelor, precum și de a vă opune sau restricționa prelucrarea acestora. Pentru a exercita oricare dintre aceste drepturi, vă rugăm să ne contactați folosind detaliile de mai jos.',
+        },
+        {
+          heading: 'Contact pentru solicitări privind datele',
+          text: 'Dacă doriți să vă exercitați drepturile privind datele sau aveți întrebări despre modul în care gestionăm informațiile dumneavoastră personale, vă rugăm să ne contactați la info@bring-o.net. Suntem cu sediul în București, România, și ne propunem să răspundem la toate solicitările legate de date în termen de 30 de zile.',
+        },
+        {
+          heading: 'Modificări ale acestei politici',
+          text: 'Putem actualiza periodic această politică de confidențialitate pentru a reflecta schimbările în practicile noastre sau în reglementările aplicabile. Orice actualizări vor fi publicate pe această pagină cu o dată revizuită de „ultima actualizare". Vă încurajăm să consultați periodic această politică.',
+        },
       ],
     },
     footer: {
