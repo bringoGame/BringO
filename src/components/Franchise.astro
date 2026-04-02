@@ -33,7 +33,7 @@ const images = [
       {t('franchise.detailsTitle')}
     </h2>
 
-    <div class="flex flex-col gap-[60px] lg:gap-[140px]">
+    <div class="flex flex-col gap-[60px] md:gap-[80px] lg:gap-[140px]">
       {items.map((item: any, i: number) => (
         <div class={`franchise-block franchise-block-${layouts[i]}`}>
           <!-- Text side -->
@@ -182,7 +182,46 @@ const images = [
     }
   }
 
-  @media (max-width: 1023px) {
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .franchise-block {
+      flex-direction: row;
+      gap: 20px;
+    }
+
+    .franchise-block-row-reverse {
+      flex-direction: row-reverse;
+    }
+
+    .franchise-text-side {
+      width: 50%;
+    }
+
+    .franchise-image-side {
+      width: 50%;
+      min-height: 300px;
+      height: auto;
+    }
+
+    .franchise-number {
+      font-size: 180px;
+      line-height: 200px;
+    }
+
+    .franchise-number-wrap {
+      height: 180px;
+    }
+
+    .franchise-item-title {
+      font-size: 24px;
+      line-height: 32px;
+    }
+
+    .franchise-cta {
+      width: auto;
+    }
+  }
+
+  @media (max-width: 767px) {
     .franchise-number {
       font-size: 163px;
       line-height: 240px;

@@ -113,7 +113,21 @@ const images = [
     background: #57CCD5;
   }
 
-  @media (max-width: 768px) {
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .gallery-slide {
+      flex: 0 0 60%;
+    }
+
+    .carousel-arrow {
+      display: flex;
+    }
+
+    .gallery-dots {
+      display: none;
+    }
+  }
+
+  @media (max-width: 767px) {
     .carousel-arrow {
       display: none;
     }

@@ -8,12 +8,12 @@ const t = useTranslations(lang);
 ---
 
 <section class="pt-[70px] pb-16 lg:pt-[70px] lg:pb-24 px-6 lg:px-[170px] relative">
-  <div class="max-w-[1920px] mx-auto flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+  <div class="hero-grid max-w-[1920px] mx-auto">
 
     <!-- Social sidebar (right edge) -->
     <div class="hidden lg:flex flex-col items-center gap-[45px] absolute right-[60px] top-[357px]" style="z-index: 10;">
       <a href="https://www.instagram.com/bringo_activities" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-        <img src="/images/social-instagram.svg" alt="Instagram" class="w-[30px] h-[30px]" style="filter: brightness(0) saturate(100%) invert(37%) sepia(79%) saturate(1681%) hue-rotate(293deg) brightness(96%) contrast(93%);" />
+        <img src="/images/social-instagram.svg" alt="Instagram" class="w-[30px] h-[30px]" />
       </a>
       <a href="https://t.me/bring_O" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
         <img src="/images/social-telegram.svg" alt="Telegram" class="w-[30px] h-[30px]" style="filter: brightness(0) saturate(100%) invert(70%) sepia(52%) saturate(478%) hue-rotate(131deg) brightness(96%) contrast(92%);" />
@@ -22,9 +22,10 @@ const t = useTranslations(lang);
         <img src="/images/icon-whatsapp.svg" alt="WhatsApp" class="w-[36px] h-[30px]" style="filter: brightness(0) saturate(100%) invert(70%) sepia(52%) saturate(478%) hue-rotate(131deg) brightness(96%) contrast(92%);" />
       </a>
     </div>
-    <!-- Left: Text content -->
-    <div class="lg:w-[45%] flex flex-col gap-[65px] order-2 lg:order-1">
-      <h1 class="font-['Roboto_Slab'] font-semibold text-[32px] leading-[115%] lg:text-[52px] lg:leading-[115%]">
+
+    <!-- Text content -->
+    <div class="hero-text flex flex-col gap-[65px]">
+      <h1 class="font-['Roboto_Slab'] font-semibold text-[32px] leading-[115%] md:text-[40px] lg:text-[52px] lg:leading-[115%]">
         {t('hero.title1')}
         <span class="text-brand-cyan">{t('hero.titleHighlight')}</span>
         {t('hero.title2')}
@@ -32,27 +33,25 @@ const t = useTranslations(lang);
       <p class="text-white text-[16px] leading-[115%] lg:text-[24px] lg:leading-[115%]">
         {t('hero.subtitle')}
       </p>
-      <div class="flex flex-col lg:flex-row gap-[45px] lg:gap-[34px]">
-        <a href="#contact" class="hero-btn-cyan w-full lg:w-auto">
+      <div class="flex flex-col md:flex-row lg:flex-row gap-[45px] md:gap-[34px] lg:gap-[34px]">
+        <a href="#contact" class="hero-btn-cyan w-full md:w-auto lg:w-auto">
           {t('hero.cta1')}
         </a>
-        <a href="#franchise" class="hero-btn-magenta w-full lg:w-auto">
+        <a href="#franchise" class="hero-btn-magenta w-full md:w-auto lg:w-auto">
           {t('hero.cta2')}
         </a>
       </div>
     </div>
 
-    <!-- Right: Hero image -->
-    <div class="lg:w-[55%] relative order-1 lg:order-2">
-      <div class="relative rounded-2xl overflow-visible max-w-[335px] lg:max-w-none mx-auto lg:mx-0">
-        <!-- Blurred background copy -->
+    <!-- Hero image + badges (same div so badges match image width) -->
+    <div class="hero-image relative">
+      <div class="hero-image-wrap relative rounded-2xl overflow-visible">
         <img
           src="/images/hero-main.png"
           alt=""
           class="absolute inset-0 w-full h-full object-cover rounded-2xl blur-[14.6px] lg:blur-[45px] scale-105 opacity-60"
           aria-hidden="true"
         />
-        <!-- Main image -->
         <img
           src="/images/hero-main.png"
           alt={t('hero.heroAlt')}
@@ -63,10 +62,29 @@ const t = useTranslations(lang);
         />
       </div>
 
+      <!-- Feature badges (inside image div to inherit width) -->
+      <div class="hero-badges flex flex-col items-center lg:flex-row lg:justify-between gap-[35px] lg:gap-0 mt-6 lg:mx-[4.375rem]">
+        <div class="hero-badge">
+          <img src="/images/icon-question.svg" alt="" class="w-10 h-10" />
+          <span class="text-[16px] leading-[115%] text-center text-white">{t('hero.badge1')}</span>
+        </div>
+        <div class="hero-badge">
+          <img src="/images/icon-launch.svg" alt="" class="w-10 h-10" />
+          <span class="text-[16px] leading-[115%] text-center text-white">{t('hero.badge2')}</span>
+        </div>
+        <div class="hero-badge">
+          <img src="/images/icon-fits.svg" alt="" class="w-10 h-10" />
+          <span class="text-[16px] leading-[115%] text-center text-white">{t('hero.badge3')}</span>
+        </div>
+        <div class="hero-badge">
+          <img src="/images/icon-calendar.svg" alt="" class="w-10 h-10" />
+          <span class="text-[16px] leading-[115%] text-center text-white">{t('hero.badge4')}</span>
+        </div>
+      </div>
     </div>
 
-    <!-- Feature badges row -->
-    <div class="flex flex-col items-center lg:flex-row lg:flex-wrap gap-[35px] lg:gap-3 mt-6 justify-center lg:justify-start order-3 w-full lg:w-[55%] lg:ml-auto">
+    <!-- Mobile-only badges (separate div for mobile ordering) -->
+    <div class="hero-badges-mobile">
       <div class="hero-badge">
         <img src="/images/icon-question.svg" alt="" class="w-10 h-10" />
         <span class="text-[16px] leading-[115%] text-center text-white">{t('hero.badge1')}</span>
@@ -130,6 +148,54 @@ const t = useTranslations(lang);
     background: #d632c9;
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(235, 60, 222, 0.4);
+  }
+
+  /* Mobile layout */
+  .hero-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .hero-text { order: 2; }
+  .hero-image { order: 1; }
+
+  .hero-image .hero-image-wrap {
+    max-width: 335px;
+    margin: 0 auto;
+  }
+
+  /* Hide badges inside image div on mobile, show separate mobile badges */
+  .hero-badges { display: none; }
+  .hero-badges-mobile { order: 3; display: flex; flex-direction: column; align-items: center; gap: 35px; }
+
+  @media (min-width: 768px) {
+    .hero-image .hero-image-wrap {
+      max-width: none;
+    }
+  }
+
+  /* Desktop */
+  @media (min-width: 1024px) {
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 33% 1fr;
+      grid-template-areas: "text image";
+      gap: 36px;
+      align-items: center;
+    }
+
+    .hero-text { grid-area: text; order: unset; }
+    .hero-image { grid-area: image; order: unset; }
+
+    .hero-image .hero-image-wrap {
+      max-width: none;
+      margin: 0;
+    }
+
+    /* Show badges inside image div on desktop, hide mobile badges */
+    .hero-badges { display: flex; }
+    .hero-badges-mobile { display: none; }
   }
 
   .hero-badge {

@@ -29,3 +29,8 @@ pnpm-debug.log*
 
 # Figma source
 *.fig
+brain ring/
+MENUMOBILE.CSS
+form.css
+mobile.css
+src/background_svg.txt

@@ -178,7 +178,26 @@ const navLinks = [
     }
   }
 
-  @media (max-width: 768px) {
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .footer-content {
+      flex-direction: row;
+      gap: 40px;
+    }
+
+    .footer-link {
+      font-size: 14px;
+    }
+
+    .footer-bottom-inner {
+      flex-direction: row;
+    }
+
+    .footer-langs {
+      display: flex;
+    }
+  }
+
+  @media (max-width: 767px) {
     .footer-content {
       flex-direction: row;
       flex-wrap: wrap;

@@ -23,7 +23,7 @@ const navLinks = [
     </a>
 
     <!-- Desktop Nav -->
-    <div class="hidden md:flex items-center gap-[45px]">
+    <div class="hidden lg:flex items-center gap-[45px]">
       {navLinks.map((link, i) => (
         <a
           href={link.href}
@@ -34,8 +34,9 @@ const navLinks = [
       ))}
     </div>
 
-    <!-- Desktop: Language Switcher -->
-    <div class="hidden md:flex items-center">
+    <!-- Desktop: Login + Language Switcher -->
+    <div class="hidden lg:flex items-center gap-6">
+      <!-- <a href="#contact" class="desktop-login-btn">{t('nav.login')}</a> -->
       <div class="relative" id="lang-switcher">
         <button class="flex items-center gap-1 text-white/70 hover:text-brand-cyan transition-colors text-sm" aria-label="Change language">
           <span>{lang.toUpperCase()}</span>
@@ -266,6 +267,30 @@ const navLinks = [
     color: #5CE1E6;
   }
 
+  .desktop-login-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 25px;
+    width: 87px;
+    height: 46px;
+    background: #E43AD7;
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .desktop-login-btn:hover {
+    background: #d632c9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(228, 58, 215, 0.4);
+  }
+
   .mobile-nav-right {
     display: none;
   }
@@ -285,7 +310,7 @@ const navLinks = [
     text-decoration: none;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1023px) {
     .nav-logo {
       width: 94.55px;
       height: 35px;

@@ -309,7 +309,28 @@ const t = useTranslations(lang);
     }
   }
 
-  @media (max-width: 1023px) {
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .contact-layout {
+      flex-direction: row;
+      gap: 24px;
+    }
+
+    .contact-form-block,
+    .contact-info-block {
+      width: 50%;
+      padding: 32px;
+    }
+
+    .contact-submit {
+      width: auto;
+    }
+
+    .contact-column-title {
+      font-size: 20px;
+    }
+  }
+
+  @media (max-width: 767px) {
     .contact-layout {
       flex-direction: column;
       gap: 24px;

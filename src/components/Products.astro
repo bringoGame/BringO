@@ -142,7 +142,7 @@ const t = useTranslations(lang);
   @media (min-width: 1024px) {
     .product-row {
       flex-direction: row;
-      gap: 0;
+      gap: 24px;
     }
 
     .product-row-reverse {
@@ -160,7 +160,36 @@ const t = useTranslations(lang);
     }
   }
 
-  @media (max-width: 1023px) {
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .product-row {
+      flex-direction: row;
+      gap: 0;
+    }
+
+    .product-row-reverse {
+      flex-direction: row-reverse;
+    }
+
+    .product-text-block {
+      width: 50%;
+      padding: 40px;
+    }
+
+    .product-image-block {
+      width: 50%;
+      min-height: 400px;
+    }
+
+    .product-title {
+      font-size: 28px;
+    }
+
+    .product-body {
+      font-size: 18px;
+    }
+  }
+
+  @media (max-width: 767px) {
     .product-title {
       font-size: 24px;
     }
