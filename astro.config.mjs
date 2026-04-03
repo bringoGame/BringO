@@ -10,7 +10,7 @@ export default defineConfig({
     tailwind(),
     sitemap({
       i18n: {
-        defaultLocale: 'en',
+        defaultLocale: 'ru',
         locales: {
           en: 'en',
           ru: 'ru',

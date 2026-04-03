@@ -113,8 +113,8 @@ const today = new Date().toISOString().split('T')[0];
     <!-- Geo & Language -->
     <meta name="geo.region" content="RO" />
     <meta name="geo.placename" content="Bucharest" />
-    <link rel="alternate" hreflang="en" href={new URL('/', Astro.site).href} />
-    <link rel="alternate" hreflang="ru" href={new URL('/ru/', Astro.site).href} />
+    <link rel="alternate" hreflang="en" href={new URL('/en/', Astro.site).href} />
+    <link rel="alternate" hreflang="ru" href={new URL('/', Astro.site).href} />
     <link rel="alternate" hreflang="ro" href={new URL('/ro/', Astro.site).href} />
     <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site).href} />
 
@@ -216,15 +216,15 @@ const today = new Date().toISOString().split('T')[0];
       ]
     })} />
     <!-- Language auto-detect (only on first visit to /) -->
-    {lang === 'en' && (
+    {lang === 'ru' && (
       <script is:inline>
         if (window.location.pathname === '/' && !sessionStorage.getItem('lang-detected')) {
           sessionStorage.setItem('lang-detected', '1');
           var userLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
           if (userLang.startsWith('ro')) {
             window.location.replace('/ro/');
-          } else if (userLang.startsWith('ru') || userLang.startsWith('uk')) {
-            window.location.replace('/ru/');
+          } else if (userLang.startsWith('en')) {
+            window.location.replace('/en/');
           }
         }
       </script>
