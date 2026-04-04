@@ -169,10 +169,6 @@ export const ui = {
           answer: 'The buzzer system significantly improves the game, but it\'s not mandatory. You can start with simple rules and add the system later.',
         },
         {
-          question: 'Can you play online?',
-          answer: 'Yes, our system supports an online format. We can provide recommendations on organizing online games.',
-        },
-        {
           question: 'Can I buy a one-time package?',
           answer: 'Yes, we offer both one-time question packages and subscriptions with regular material updates.',
         },
@@ -355,7 +351,6 @@ export const ui = {
       items: [
         { question: 'Как проходит игра?', answer: 'Участвуют несколько команд. Ведущий зачитывает вопрос. После сигнала команды могут нажимать кнопку. Кто нажал первым — получает право ответа. Если ответ верный — команда получает балл. Если нет — право ответа переходит другой команде. Есть ограничение по времени на обсуждение/ответ. Ведётся общий счёт и рейтинг команд. Побеждает команда с наибольшим количеством баллов. Вся суть — в скорости реакции, знаниях и командной работе.', open: true },
         { question: 'Нужна ли кнопочная система?', answer: 'Кнопочная система значительно улучшает игру, но не является обязательной. Вы можете начать с простых правил и добавить систему позже.' },
-        { question: 'Можно ли играть онлайн?', answer: 'Да, наша система поддерживает онлайн-формат. Мы можем предоставить рекомендации по организации онлайн-игр.' },
         { question: 'Можно ли купить разовый пакет?', answer: 'Да, мы предлагаем как разовые пакеты вопросов, так и подписку на регулярное обновление материалов.' },
         { question: 'Подходит ли игра для корпоративных мероприятий?', answer: 'Абсолютно! Брэйн Ринг отлично подходит для тимбилдингов, корпоративных вечеринок и мероприятий. Мы адаптируем вопросы под вашу аудиторию.' },
       ],
@@ -533,7 +528,6 @@ export const ui = {
       items: [
         { question: 'Cum se desfășoară jocul?', answer: 'Participă mai multe echipe. Gazda citește o întrebare. După semnal, echipele pot apăsa butonul. Cine apasă primul primește dreptul de a răspunde. Dacă răspunsul este corect, echipa primește un punct. Dacă nu, dreptul de a răspunde trece la altă echipă. Există o limită de timp pentru discuție și răspuns. Se menține un scor general și un clasament al echipelor. Câștigă echipa cu cele mai multe puncte. Totul se bazează pe viteza de reacție, cunoștințe și lucrul în echipă.', open: true },
         { question: 'Este necesar sistemul de butoane?', answer: 'Sistemul de butoane îmbunătățește semnificativ jocul, dar nu este obligatoriu. Puteți începe cu reguli simple și să adăugați sistemul ulterior.' },
-        { question: 'Se poate juca online?', answer: 'Da, sistemul nostru suportă formatul online. Putem oferi recomandări pentru organizarea jocurilor online.' },
         { question: 'Pot cumpăra un pachet unic?', answer: 'Da, oferim atât pachete unice de întrebări, cât și abonamente cu actualizare regulată a materialelor.' },
         { question: 'Este jocul potrivit pentru evenimente corporative?', answer: 'Absolut! Brain Ring este perfect pentru team-building-uri, petreceri corporative și evenimente. Adaptăm întrebările la publicul dumneavoastră.' },
       ],
