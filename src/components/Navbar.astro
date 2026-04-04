@@ -344,7 +344,8 @@ const navLinks = [
 
   function applyMenuBg() {
     if (nav) {
-      nav.style.background = 'linear-gradient(180deg, #260B40 0%, #461276 100%)';
+      nav.style.transition = 'none';
+      nav.style.background = '#260B40';
       nav.style.backdropFilter = 'none';
       nav.style.borderBottom = 'none';
       nav.classList.add('menu-open');
@@ -354,10 +355,10 @@ const navLinks = [
   function removeMenuBg() {
     if (nav) {
       nav.classList.remove('menu-open');
-      // Re-apply scroll-based bg
+      nav.style.transition = 'all 0.5s ease-in-out';
       if (window.scrollY > 50) {
-        nav.style.background = 'rgba(26, 10, 46, 0.85)';
-        nav.style.backdropFilter = 'blur(12px)';
+        nav.style.background = 'rgba(26, 10, 46, 0.95)';
+        nav.style.backdropFilter = 'none';
         nav.style.borderBottom = '1px solid rgba(255, 255, 255, 0.05)';
       } else {
         nav.style.background = 'transparent';
@@ -411,8 +412,8 @@ const navLinks = [
   window.addEventListener('scroll', () => {
     if (nav?.classList.contains('menu-open')) return;
     if (window.scrollY > 50) {
-      nav!.style.background = 'rgba(26, 10, 46, 0.85)';
-      nav!.style.backdropFilter = 'blur(12px)';
+      nav!.style.background = 'rgba(26, 10, 46, 0.95)';
+      nav!.style.backdropFilter = 'none';
       nav!.style.borderBottom = '1px solid rgba(255, 255, 255, 0.05)';
     } else {
       nav!.style.background = 'transparent';
