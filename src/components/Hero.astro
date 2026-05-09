@@ -43,23 +43,22 @@ const t = useTranslations(lang);
       </div>
     </div>
 
-    <!-- Hero image + badges (same div so badges match image width) -->
+    <!-- Hero video + badges (same div so badges match video width) -->
     <div class="hero-image relative">
-      <div class="hero-image-wrap relative rounded-2xl overflow-visible">
-        <img
-          src="/images/hero-main.png"
-          alt=""
-          class="absolute inset-0 w-full h-full object-cover rounded-2xl blur-[14.6px] lg:blur-[45px] scale-105 opacity-60"
-          aria-hidden="true"
-        />
-        <img
-          src="/images/hero-main.png"
-          alt={t('hero.heroAlt')}
+      <div class="hero-image-wrap relative rounded-2xl overflow-hidden">
+        <video
+          src="/videos/hero-loop.mp4"
+          poster="/images/hero-main.png"
+          aria-label={t('hero.heroAlt')}
           class="relative w-full h-full object-cover rounded-2xl"
           width="1026"
           height="695"
-          loading="eager"
-        />
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+        ></video>
       </div>
 
       <!-- Feature badges (inside image div to inherit width) -->

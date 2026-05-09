@@ -8,10 +8,9 @@ const t = useTranslations(lang);
 const ta = useTranslatedArray(lang);
 
 const alts = ta('gallery.alts') as string[];
-const images = [
-  '/images/gallery-1.png',
-  '/images/gallery-2.png',
-  '/images/gallery-3.png',
+const videos = [
+  '/videos/reel-1.mp4',
+  '/videos/reel-2.mp4',
 ];
 ---
 
@@ -31,9 +30,18 @@ const images = [
 
     <div class="gallery-viewport" id="gallery-viewport">
       <div class="gallery-track" id="gallery-track">
-        {images.map((src, i) => (
+        {videos.map((src, i) => (
           <div class="gallery-slide">
-            <img src={src} alt={alts[i] || ''} loading="lazy" />
+            <video
+              src={src}
+              aria-label={alts[i] || ''}
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              controls
+            ></video>
           </div>
         ))}
       </div>
@@ -41,7 +49,7 @@ const images = [
 
     <!-- Dot indicators (mobile only) -->
     <div class="gallery-dots" id="gallery-dots">
-      {images.map((_, i) => (
+      {videos.map((_, i) => (
         <button class={`gallery-dot ${i === 0 ? 'gallery-dot-active' : ''}`} data-index={i} aria-label={`Slide ${i + 1}`} />
       ))}
     </div>
@@ -81,18 +89,19 @@ const images = [
   }
 
   .gallery-slide {
-    flex: 0 0 70%;
+    flex: 0 0 80%;
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0px 30px 58.4px rgba(0, 0, 0, 0.25);
   }
 
-  .gallery-slide img {
+  .gallery-slide video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
-    aspect-ratio: 782 / 450;
+    aspect-ratio: 9 / 16;
+    background: #000;
   }
 
   .gallery-dots {
@@ -113,9 +122,15 @@ const images = [
     background: #57CCD5;
   }
 
+  @media (min-width: 1024px) {
+    .gallery-slide {
+      flex: 0 0 32%;
+    }
+  }
+
   @media (min-width: 768px) and (max-width: 1023px) {
     .gallery-slide {
-      flex: 0 0 60%;
+      flex: 0 0 45%;
     }
 
     .carousel-arrow {
@@ -133,12 +148,7 @@ const images = [
     }
 
     .gallery-slide {
-      flex: 0 0 100%;
-    }
-
-    .gallery-slide img {
-      height: 192px;
-      aspect-ratio: auto;
+      flex: 0 0 80%;
     }
 
     .gallery-dots {
