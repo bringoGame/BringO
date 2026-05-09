@@ -179,12 +179,6 @@ To deploy a feature branch as a preview without touching prod, push the branch �
 - Managed outside this stack. MX/SPF/autoconfig records on Cloudflare point at privateemail.com.
 - Don't touch. Treat as read-only infrastructure.
 
-### Azure (decommissioned)
-
-The site previously ran on Azure App Service `bringo-web` in resource group `bringo-rg`. The whole resource group was deleted as part of the Vercel migration (2026-05-09). No Azure resources remain in scope.
-
-The Azure CLI on this machine is logged into a different account (`mihai.moglan@sengenergy.com`) — that's a separate context, not related to bringo.
-
 ## Why `engines.node = "20.x"`?
 
 `@astrojs/vercel@7.x` writes the function runtime to the build output by introspecting the build-env Node version. Vercel's default Node version is `24.x`, which the v7 adapter doesn't recognize, so it falls back to `nodejs18.x` — which Vercel now rejects.
