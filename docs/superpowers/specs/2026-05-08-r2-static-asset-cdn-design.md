@@ -1,7 +1,15 @@
 # Static Asset CDN — Cloudflare R2
 
+> **STATUS: SUPERSEDED (2026-05-09).** Abandoned in favor of Vercel's built-in
+> edge CDN. The site is hosted on Vercel; assets in `public/` are already
+> served from Vercel's global edge with no extra infrastructure. R2 added
+> complexity without enough win at this site's scale (~10 MB assets, modest
+> traffic). Branch `feat/r2-static-asset-cdn` contains a partial implementation
+> (Tasks 1–4 of [the plan](../plans/2026-05-08-r2-static-asset-cdn.md)) for
+> reference if a future cross-host CDN is needed.
+
 **Date:** 2026-05-08
-**Status:** Approved (pending user review of this written spec)
+**Status:** Superseded
 **Project:** brain-ring (Astro 4, `@astrojs/node`)
 
 ## Goals

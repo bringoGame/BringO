@@ -1,5 +1,12 @@
 # R2 Static-Asset CDN Implementation Plan
 
+> **STATUS: SUPERSEDED (2026-05-09).** Tasks 1–4 implemented on branch
+> `feat/r2-static-asset-cdn`; Tasks 5–8 abandoned. Decision: site deploys to
+> Vercel, whose built-in edge CDN already serves `public/` globally — R2 added
+> complexity without enough win at this site's scale. The implementation work
+> on the feature branch is preserved for reference. Spec:
+> [`../specs/2026-05-08-r2-static-asset-cdn-design.md`](../specs/2026-05-08-r2-static-asset-cdn-design.md).
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Serve raster images and (future) video for the brain-ring landing page from a Cloudflare R2 bucket at `cdn.bring-o.net`, with content-hashed filenames, immutable caching, and a manual `npm run cdn:sync` upload pipeline. Local dev keeps reading from `public/`.
