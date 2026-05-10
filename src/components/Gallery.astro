@@ -104,6 +104,21 @@ const videos = [
     background: #000;
   }
 
+  /* Tablet+ : center the row of slides and cap height for vertical reels */
+  @media (min-width: 768px) {
+    .gallery-track {
+      justify-content: center;
+    }
+
+    .gallery-slide {
+      flex: 0 0 auto;
+      width: auto;
+      height: 70vh;
+      max-height: 600px;
+      aspect-ratio: 9 / 16;
+    }
+  }
+
   .gallery-dots {
     display: none;
   }
@@ -122,17 +137,8 @@ const videos = [
     background: #57CCD5;
   }
 
-  @media (min-width: 1024px) {
-    .gallery-slide {
-      flex: 0 0 32%;
-    }
-  }
-
+  /* Tablet: hide dots, height already capped above */
   @media (min-width: 768px) and (max-width: 1023px) {
-    .gallery-slide {
-      flex: 0 0 45%;
-    }
-
     .carousel-arrow {
       display: flex;
     }
@@ -142,13 +148,10 @@ const videos = [
     }
   }
 
+  /* Mobile: full-width carousel with dot indicators */
   @media (max-width: 767px) {
     .carousel-arrow {
       display: none;
-    }
-
-    .gallery-slide {
-      flex: 0 0 80%;
     }
 
     .gallery-dots {
